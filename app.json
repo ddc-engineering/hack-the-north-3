@@ -13,7 +13,6 @@
   "environments": {
     "test": {
       "scripts": {
-        "test-setup": "pip install pytest",
         "test": "pytest"
       }
     }
