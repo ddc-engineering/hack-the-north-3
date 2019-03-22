@@ -1,45 +1,36 @@
-# Python: Getting Started
+# Getting Started
 
-A barebones Django app, which can easily be deployed to Heroku.
-
-This application supports the [Getting Started with Python on Heroku](https://devcenter.heroku.com/articles/getting-started-with-python) article - check it out.
+Make changes, push to Git and deploy to Heroku.
 
 ## Running Locally
 
-Make sure you have Python 3.7 [installed locally](http://install.python-guide.org). To push to Heroku, you'll need to install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli), as well as [Postgres](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup).
+Install Heroku
 
 ```sh
-$ git clone https://github.com/heroku/python-getting-started.git
-$ cd python-getting-started
+$ sudo snap install heroku --classic
+```
 
-$ python3 -m venv getting-started
+Download the repo, create a venv, install requirements
+
+```sh
+$ git clone git@github.com:ddc-engineering/hack-the-north-3.git
+$ cd hack-the-north-3
+
+$ python3 -m venv venv
+$ source venv/bin/activate
 $ pip install -r requirements.txt
-
-$ createdb python_getting_started
 
 $ python manage.py migrate
 $ python manage.py collectstatic
+```
 
+Run locally
+```sh 
 $ heroku local
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-## Deploying to Heroku
+## Running on Heroku
 
-```sh
-$ heroku create
-$ git push heroku master
-
-$ heroku run python manage.py migrate
-$ heroku open
-```
-or
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Python on Heroku, see these Dev Center articles:
-
-- [Python on Heroku](https://devcenter.heroku.com/categories/python) 
+Push to the repo.  Easy.
