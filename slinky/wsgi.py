@@ -21,7 +21,6 @@ def start():
 
     return jsonify(
         {
-            "answerIds": [1],
             "sessionId": f"{session_id}",
             "pageView": {
                 "title": "Demographics", "hint": "AdditionalInformation",
@@ -41,4 +40,17 @@ def start():
 
 @application.route('/api/response', methods=['POST'])
 def response():
-    return jsonify(request.json)
+    post_body = request.json
+    session_id = post_body["sessionId"]
+    question_name = post_body["name"]
+
+    if session_id not in db:
+        raise ValueError(f"The session id {session_id} was not found in the database")
+
+    db[session_id][question_name] = post_body["value"]
+
+    # TODO: return the next question
+
+    return jsonify(
+        db[session_id]
+    )
