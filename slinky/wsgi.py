@@ -1,6 +1,7 @@
 import uuid
+import json
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 
 application = Flask(__name__)
 
@@ -14,13 +15,8 @@ def generate_session():
 
 @application.route("/api/start", methods=['GET'])
 def start():
-
     session_id = generate_session()
-
-    db[session_id] = dict()
-
-    return jsonify(
-        {
+    respData = {
             "sessionId": f"{session_id}",
             "pageView": {
                 "title": "Demographics", "hint": "AdditionalInformation",
@@ -35,8 +31,11 @@ def start():
                                  {"id": 3, "hint": "Other hint", "value": "other", "text": "Other"}]}]}
         }
 
-    )
+    resp = Response(json.dumps(respData))
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    db[session_id] = dict()
 
+    return resp
 
 @application.route('/api/response', methods=['POST'])
 def response():
