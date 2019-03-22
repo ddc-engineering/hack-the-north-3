@@ -33,6 +33,7 @@ def start():
 
     resp = Response(json.dumps(respData))
     resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Content-Type'] = 'application/json'
     db[session_id] = dict()
 
     return resp
