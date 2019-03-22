@@ -1,6 +1,6 @@
 import uuid
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 application = Flask(__name__)
 
@@ -12,7 +12,7 @@ def generate_session():
     return uuid.uuid1()
 
 
-@application.route("/api/start")
+@application.route("/api/start", methods=['GET'])
 def start():
 
     session_id = generate_session()
@@ -38,3 +38,7 @@ def start():
 
     )
 
+
+@application.route('/api/response', methods=['POST'])
+def response():
+    return jsonify(request.json)
