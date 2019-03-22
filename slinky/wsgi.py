@@ -1,15 +1,28 @@
+import uuid
+
 from flask import Flask, jsonify
+
 application = Flask(__name__)
+
 
 db = dict()
 
 
+def generate_session():
+    return uuid.uuid1()
+
+
 @application.route("/api/start")
 def start():
+
+    session_id = generate_session()
+
+    db[session_id] = dict()
+
     return jsonify(
         {
             "answerIds": [1],
-            "sessionId": "testSessionID",
+            "sessionId": f"{session_id}",
             "pageView": {
                 "title": "Demographics", "hint": "AdditionalInformation",
                 "questions": [
