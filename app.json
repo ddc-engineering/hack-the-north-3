@@ -13,7 +13,7 @@
   "environments": {
     "test": {
       "scripts": {
-        "test": "pytest wsgi"
+        "test": "pytest"
       }
     }
   }
