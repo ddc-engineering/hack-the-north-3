@@ -1,10 +1,10 @@
-from flask import Flask
+from flask import Flask, jsonify
 application = Flask(__name__)
 
 
 @application.route("/question/<int:question_id>")
 def question(question_id: str):
-    return {
+    return jsonify({
         "answerIds": [1, 4],
-        "question": { f"test {question_id}" }
-    }
+        "question": { "test": f"test {question_id}" }
+    })
