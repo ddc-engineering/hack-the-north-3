@@ -1,16 +1,15 @@
 {
-  "name": "Start on Heroku: Python",
-  "description": "A barebones Python app, which can easily be deployed to Heroku.",
+  "name": "Slinky app",
+  "description": "An API for triage assessments",
   "image": "heroku/python",
-  "repository": "https://github.com/heroku/python-getting-started",
-  "keywords": ["python", "django" ],
+  "repository": "https://github.com/ddc-engineering/hack-the-north-3",
   "addons": [ "heroku-postgresql" ],
   "env": {
     "SECRET_KEY": {
       "description": "The secret key for the Django application.",
       "generator": "secret"
     }
-  },
+  }/*,
   "environments": {
     "test": {
       "scripts": {
@@ -18,5 +17,5 @@
         "test": "python manage.py test"
       }
     }
-  }
+  }*/
 }
