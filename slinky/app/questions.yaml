@@ -8,7 +8,6 @@ pages:
       - title: "What do you want help with?"
         type: "radio"
         name: "help_required"
-        inline: true
         options:
           - id: 1
             value: "work"
