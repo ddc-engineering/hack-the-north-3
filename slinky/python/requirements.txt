@@ -3,3 +3,4 @@ gunicorn
 pytest
 pyyaml
 flask_cors
+requests

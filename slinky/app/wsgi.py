@@ -1,7 +1,9 @@
 import uuid
 import json
 import random
+import urllib.parse
 
+import requests
 from flask import Flask, request, Response
 import contentloader as contentloader
 from flask_cors import CORS
@@ -37,6 +39,7 @@ class SlinkyApp:
 
         self.session_id = session_id
         self.data = application.munjoe_db[session_id]
+
         self.questions = contentloader.load_questions('/app/questions.yaml')
 
     def retrieve_last_question(self, question_id):
@@ -57,7 +60,7 @@ class SlinkyApp:
         next_items = self.get_question_by_id(question_id)['questions'][0].get('next')
         if not next_items:
             return None
-        
+
         next_question_id = next((item.get('question') for item in next_items if item.get('option') == answer_id), None)
         if next_question_id:
             return self.get_question_by_id(next_question_id)
@@ -110,7 +113,7 @@ def response():
 
     app = SlinkyApp(session_id)
     q = app.get_next_question(question_id, answer_id)
-    if not q:    
+    if not q:
         # should get the helpful urls
         q = {'helpful_url': 'xxxxx'}
 
@@ -131,6 +134,11 @@ def answers():
     a = app.get_answers()
     return _create_question_response(a)
 
+
 def is_sentiment_concerning(text):
-    # do some analysis
+    html_text = urllib.parse.quote(text, safe='')
+    r = requests.get(f"http://ec2-3-8-124-198.eu-west-2.compute.amazonaws.com:5000/sentiment/{html_text}").json()
+    if r['Sentiment'] == "NEGATIVE":
+        return True
+
     return False
