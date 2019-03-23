@@ -1,6 +1,7 @@
 import * as types from "../constants/actionTypes";
 import axios from "axios";
 import APIEndpoints from "../constants/endpoints";
+import history from "../../history";
 
 const querySuccessful = payload => {
   return { type: types.QUERY_COMPLETE, payload };
@@ -24,4 +25,9 @@ export const queryPassphrase = passphrase => {
       })
       .catch(error => {});
   };
+};
+
+export const getResults = payload => {
+  history.push("/results");
+  return { type: types.QUESTIONNAIRE_FINISHED, payload };
 };

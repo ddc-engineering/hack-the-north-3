@@ -105,6 +105,7 @@ export default class QuestionnaireView extends React.Component {
               Back
             </a>
             <h2 className="govuk-heading-l">Loading...</h2>
+
             <p className="govuk-body-l">
               If this page is stuck, try reloading the page.
             </p>
