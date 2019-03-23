@@ -14,7 +14,7 @@ class HomeView extends React.Component {
   render() {
     return (
       <div className="margin-top-title">
-        <h1 className="govuk-heading-xl">Find work, get support and learn about what benefits you're entitled to.</h1>
+        <h1 className="govuk-heading-xl">Find work, get support and learn about what benefits you're entitled to</h1>
         <p className="govuk-body">
           We will guide you through a set of questions, at the end of which you
           will have a personalised report that you can share with others, with
