@@ -1,0 +1,5 @@
+flask==1.0.2
+prometheus_client==0.6.0
+sentry-sdk[flask]==0.7.6
+boto3
+requests

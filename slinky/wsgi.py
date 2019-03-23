@@ -43,7 +43,7 @@ class SlinkyApp:
         if self.question_index == 0:
             return self.questions[0]
         else:
-            return self.questions[self.question_index-1]
+            return self.questions[self.question_index - 1]
 
     def update_question(self, name, val):
         # self.data[name] = val
