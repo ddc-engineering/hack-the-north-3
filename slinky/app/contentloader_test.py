@@ -1,6 +1,6 @@
-import slinky.contentloader as contentloader
+import contentloader
 
-fixture_path = './test_content.yaml'
+fixture_path = './slinky/app/test_content.yaml'
 
 def test_loads_yaml():
     pages = contentloader.load_questions(fixture_path)

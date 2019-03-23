@@ -2,7 +2,7 @@ import uuid
 import json
 
 from flask import Flask, request, Response, jsonify
-from yaml import load, Loader
+import contentloader as contentloader
 from flask_cors import CORS
 
 application = Flask(__name__)
@@ -10,14 +10,6 @@ application = Flask(__name__)
 CORS(application)
 
 application.munjoe_db = dict()
-
-
-def load_questions() -> dict:
-
-    with open('/app/questions.yaml', 'r') as questions_yaml:
-        questions = load(questions_yaml, Loader=Loader)
-    return questions
-
 
 class SlinkyApp:
 
@@ -34,7 +26,7 @@ class SlinkyApp:
         self.session_id = session_id
         self.data = application.munjoe_db[session_id]
 
-        self.questions = load_questions()
+        self.questions = contentloader.load_questions('/app/questions.yaml')
 
     def retrieve_last_question(self, question_id):
         return next(question_id for question in self.questions if question.get('id') == id)

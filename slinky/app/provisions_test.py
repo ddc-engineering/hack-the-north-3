@@ -1,5 +1,5 @@
 import pytest
-from slinky.provisions import ProvisionsEngine
+from provisions import ProvisionsEngine
 
 @pytest.fixture
 def engine():
