@@ -21,15 +21,16 @@ CREATE TABLE IF NOT EXISTS questions (session_id text, question_name text, quest
 """
 
 
-def get_db():
+def get_db_cursor():
     if 'conn' not in g:
         g.conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-        g.conn.execute(schema)
-    return g.conn
+        g.cur = g.conn.cursor()
+        g.cur.execute(schema)
+    return g.cur
 
 
 @application.teardown_appcontext
-def teardown_db():
+def teardown_db(g):
     conn = g.pop('conn', None)
     if conn:
         conn.close()
@@ -47,7 +48,7 @@ class SlinkyApp:
 
     def __init__(self, session_id=None):
 
-        conn = get_db()
+        conn = get_db_cursor()
 
         if not session_id:
             session_id = generate_session()
@@ -82,7 +83,7 @@ class SlinkyApp:
 
         sql = """insert into questions (session_id, question_name, question_value) values (%s, %s, %s)"""
 
-        conn = get_db()
+        conn = get_db_cursor()
         conn.execute(sql, (session_id, name, val))
 
     def get_next_question(self):
