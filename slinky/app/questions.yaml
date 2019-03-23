@@ -16,7 +16,7 @@ pages:
             text: "Finding work experience"
           - id: 3
             value: "education_training"
-            text: "Access to training or courses"
+            text: "Getting access to training or courses"
           - id: 4
             value: "benefits"
             text: "Claiming benefits"

@@ -41,7 +41,7 @@ export default class Header extends React.Component {
                 href="/"
                 className="govuk-header__link govuk-header__link--service-name"
               >
-                Getting back to work
+                Find work, support, and benefits
               </a>
               <nav>
                 <ul
