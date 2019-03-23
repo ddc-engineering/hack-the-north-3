@@ -155,3 +155,12 @@ provisions:
     questions:
       - 1
       - 3
+  - name: "Mental Health"
+    items:
+      - "https://www.mindwell-leeds.org.uk/"
+      - "http://www.leedsmind.org.uk/"
+      - "https://www.nhs.uk/conditions/stress-anxiety-depression/mood-self-assessment/"
+    questions:
+      - 3
+      - 4
+      - 5
