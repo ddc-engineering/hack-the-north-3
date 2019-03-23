@@ -90,16 +90,7 @@ def generate_session():
 def create_provisions_response(provisions, passphrase=None):
     return _create_question_response({
         "friendly_code": passphrase,
-        "provisions": [
-            {
-                "name": "Training",
-                "items": [
-                    "https://www.leeds.gov.uk/residents/learning-and-job-opportunities/learning-opportunities",
-                    "https://doinggoodleeds.org.uk/training-courses/",
-                    "You might want to consider booking an appointment with a work coach at your local Jobcentre Plus",
-                ],
-            }
-        ],
+        "provisions": provisions,
     })
 
 def _create_question_response(page_view: dict, session_id=None):

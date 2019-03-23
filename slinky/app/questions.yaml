@@ -2,6 +2,7 @@ pages:
   - page:
     id: 1
     title: "What do you want help with?"
+    hint: "What do you want help with?"
 
     questions:
       - title: "What do you want help with?"
@@ -16,7 +17,7 @@ pages:
             text: "Finding work experience"
           - id: 3
             value: "education_training"
-            text: "Getting access to training or courses"
+            text: "Access to training or courses"
           - id: 4
             value: "benefits"
             text: "Claiming benefits"
@@ -26,7 +27,7 @@ pages:
           - option: 3
             question: 4
           - option: 4
-            question: 6
+            question: 4
 
   - page:
     id: 2
@@ -91,11 +92,11 @@ pages:
             question: 4
 
   - page:
-    title: "Why are you feeling this way?"
+    title: "Why?"
     id: 4
 
     questions:
-      - title: ""
+      - title: "Why?"
         type: "free"
         name: "sad_why"
         inline: true
@@ -142,15 +143,15 @@ pages:
 provisions:
   - name: "Training"
     items:
-      - "http://link1.com"
-      - "http://link2.com"
-      - "Here's a simple explanation about this"
+      - "https://www.leeds.gov.uk/residents/learning-and-job-opportunities/learning-opportunities"
+      - "https://doinggoodleeds.org.uk/training-courses/"
+      - "You might want to consider booking an appointment with a work coach at your local Jobcentre Plus"
     questions:
       - 1
       - 2
   - name: "IT Jobs"
     items:
-      - "http://link1.com"
+      - "https://northcoders.com/"
     questions:
       - 1
       - 3
