@@ -1,0 +1,17 @@
+version: '3.6'
+services:
+
+  ui:
+    build: ui
+    ports:
+    - '80:80'
+
+  slinky:
+    build: slinky
+    ports:
+    - '3000:5000'
+
+  text:
+    build: text
+    ports:
+      - '5000:5000'
