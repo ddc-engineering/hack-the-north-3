@@ -88,7 +88,7 @@ pages:
             value: "bad"
             text: ":("
             hint: "Scared, sad or anxious"
-          - id: 2:
+          - id: 2
             value: "meh"
             text: ":|"
             hint: "Indifferent, not bothered"
@@ -96,13 +96,13 @@ pages:
             value: "good"
             text: ":)"
             hint: "Happy, excited"
-      next:
-        - option: 1
-          question: 5
-        - option: 2
-          question: 5
-        - option: 3
-          question: 4
+        next:
+          - option: 1
+            question: 5
+          - option: 2
+            question: 5
+          - option: 3
+            question: 4
 
   - page:
     title: "Why?"
@@ -161,7 +161,6 @@ pages:
             value: "build_confident"
             hint: "I would like help to be more confident"
             text: "I would like help to be more confident"
-
 
 provisions:
   - name: "Training"
