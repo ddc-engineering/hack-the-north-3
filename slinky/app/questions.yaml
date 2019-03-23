@@ -2,7 +2,6 @@ pages:
   - page:
     id: 1
     title: "What do you want help with?"
-    hint: "What do you want help with?"
 
     questions:
       - title: "What do you want help with?"
@@ -96,7 +95,7 @@ pages:
     id: 4
 
     questions:
-      - title: "Why are you feeling this way?"
+      - title: ""
         type: "free"
         name: "sad_why"
         inline: true
