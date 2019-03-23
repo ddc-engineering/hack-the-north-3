@@ -1,15 +1,38 @@
 import uuid
 import json
+import os
+import psycopg2
 
-from flask import Flask, request, Response
+from flask import Flask, request, Response, g
 from yaml import load, Loader
 from flask_cors import CORS
+
 
 application = Flask(__name__)
 
 CORS(application)
 
-application.munjoe_db = dict()
+DATABASE_URL = os.environ['DATABASE_URL']
+
+
+schema = """
+CREATE TABLE IF NOT EXISTS user_sessions (session_id text PRIMARY KEY, current_question text);
+CREATE TABLE IF NOT EXISTS questions (session_id text, question_name text, question_value text);
+"""
+
+
+def get_db():
+    if 'conn' not in g:
+        g.conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        g.conn.execute(schema)
+    return g.conn
+
+
+@application.teardown_appcontext
+def teardown_db():
+    conn = g.pop('conn', None)
+    if conn:
+        conn.close()
 
 
 def load_questions() -> dict:
@@ -24,16 +47,20 @@ class SlinkyApp:
 
     def __init__(self, session_id=None):
 
+        conn = get_db()
+
         if not session_id:
             session_id = generate_session()
-            application.munjoe_db[session_id] = dict()
-            application.munjoe_db[session_id]['answers'] = []
+
+            sql = """insert into user_sessions(session_id, current_question) values (%s, %s)"""
+            conn.execute(sql, (session_id, 0))
         else:
-            if session_id not in application.munjoe_db:
-                raise ValueError(f"The session id {session_id} was not found in the database")
+            #if session_id not in db:
+            #    raise ValueError(f"The session id {session_id} was not found in the database")
+            pass
 
         self.session_id = session_id
-        self.data = application.munjoe_db[session_id]
+        #self.data = db[session_id]
 
         self.question_index = 0
 
@@ -45,13 +72,18 @@ class SlinkyApp:
         else:
             return self.questions[self.question_index-1]
 
-    def update_question(self, name, val):
+    def update_question(self, session_id, name, val):
         # self.data[name] = val
 
-        self.data['answers'].append({
-            "name": name,
-            "val": val
-        })
+        # self.data['answers'].append({
+        #     "name": name,
+        #     "val": val
+        # })
+
+        sql = """insert into questions (session_id, question_name, question_value) values (%s, %s, %s)"""
+
+        conn = get_db()
+        conn.execute(sql, (session_id, name, val))
 
     def get_next_question(self):
         question = self.questions[self.question_index]
