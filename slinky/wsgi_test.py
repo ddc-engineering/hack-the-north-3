@@ -40,4 +40,7 @@ def test_response(client):
     rs = client.get(f'/api/restore?sessionId={session_id}')
     assert rs.status == "200 OK"
 
+    rs = client.get(f'/api/answers?sessionId={session_id}')
+    assert rs.data == b'[{"name": "question_1", "val": "True"}, {"name": "question_2", "val": "False"}]'
+
 

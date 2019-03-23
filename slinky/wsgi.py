@@ -2,10 +2,19 @@ import uuid
 import json
 
 from flask import Flask, request, Response
+from yaml import load, Loader
 
 application = Flask(__name__)
 
 application.munjoe_db = dict()
+
+
+def load_questions() -> dict:
+
+    with open('slinky/questions.yaml', 'r') as questions_yaml:
+        questions = load(questions_yaml, Loader=Loader)
+
+    return questions
 
 
 class SlinkyApp:
@@ -15,6 +24,7 @@ class SlinkyApp:
         if not session_id:
             session_id = generate_session()
             application.munjoe_db[session_id] = dict()
+            application.munjoe_db[session_id]['answers'] = []
         else:
             if session_id not in application.munjoe_db:
                 raise ValueError(f"The session id {session_id} was not found in the database")
@@ -22,14 +32,36 @@ class SlinkyApp:
         self.session_id = session_id
         self.data = application.munjoe_db[session_id]
 
-    def set_last_question(self, q):
-        self.data['last_question'] = q
+        self.question_index = 0
+
+        self.questions = load_questions()
 
     def retrieve_last_question(self):
-        return self.data['last_question']
+        if self.question_index == 0:
+            return self.questions[0]
+        else:
+            return self.questions[self.question_index-1]
 
     def update_question(self, name, val):
-        self.data[name] = val
+        # self.data[name] = val
+
+        self.data['answers'].append({
+            "name": name,
+            "val": val
+        })
+
+    def get_next_question(self):
+        question = self.questions[self.question_index]
+
+        question["sessionId"] = self.session_id
+
+        self.question_index += 1
+
+        return question
+
+    def get_answers(self):
+        answers = self.data['answers']
+        return answers
 
 
 def generate_session():
@@ -48,24 +80,9 @@ def start():
 
     app = SlinkyApp()
 
-    resp_data = {
-            "sessionId": f"{app.session_id}",
-            "pageView": {
-                "title": "Demographics", "hint": "AdditionalInformation",
-                "questions": [
-                    {"title": "Are you male or female?",
-                     "hint": "This is a test radio hint",
-                     "type": "radio",
-                     "name": "gender",
-                     "inline": True,
-                     "options": [{"id": 1, "value": "male", "hint": "Male Hint", "text": "Male"},
-                                 {"id": 2, "hint": "Female hint", "value": "female", "text": "Female"},
-                                 {"id": 3, "hint": "Other hint", "value": "other", "text": "Other"}]}]}
-        }
+    q = app.get_next_question()
 
-    app.set_last_question(resp_data)
-
-    return _create_question_response(resp_data)
+    return _create_question_response(q)
 
 
 @application.route('/api/response', methods=['POST'])
@@ -78,24 +95,9 @@ def response():
     app = SlinkyApp(session_id)
     app.update_question(question_name, post_body["value"])
 
-    resp_data = {
-        "sessionId": f"{session_id}",
-        "pageView": {
-            "title": "Demographics", "hint": "AdditionalInformation",
-            "questions": [
-                {"title": "Next dummy question?",
-                 "hint": "This is a test radio hint",
-                 "type": "radio",
-                 "name": "dummyq",
-                 "inline": True,
-                 "options": [{"id": 1, "value": "male", "hint": "Male Hint", "text": "Male"},
-                             {"id": 2, "hint": "Female hint", "value": "female", "text": "Female"},
-                             {"id": 3, "hint": "Other hint", "value": "other", "text": "Other"}]}]}
-    }
+    q = app.get_next_question()
 
-    app.set_last_question(resp_data)
-
-    return _create_question_response(resp_data)
+    return _create_question_response(q)
 
 
 @application.route('/api/restore', methods=['GET'])
@@ -103,5 +105,14 @@ def restore():
     session_id = request.args.get('sessionId', '')
 
     app = SlinkyApp(session_id)
-    last_q = app.retrieve_last_question()
-    return _create_question_response(last_q)
+    q = app.retrieve_last_question()
+    return _create_question_response(q)
+
+
+@application.route('/api/answers', methods=['GET'])
+def answers():
+    session_id = request.args.get('sessionId', '')
+
+    app = SlinkyApp(session_id)
+    a = app.get_answers()
+    return _create_question_response(a)
