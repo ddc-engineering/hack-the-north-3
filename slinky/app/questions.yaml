@@ -2,7 +2,6 @@ pages:
   - page:
     id: 1
     title: "What do you want help with?"
-    hint: "What do you want help with?"
 
     questions:
       - title: "What do you want help with?"
@@ -17,7 +16,7 @@ pages:
             text: "Finding work experience"
           - id: 3
             value: "education_training"
-            text: "Access to training or courses"
+            text: "Getting access to training or courses"
           - id: 4
             value: "benefits"
             text: "Claiming benefits"
@@ -96,7 +95,7 @@ pages:
     id: 4
 
     questions:
-      - title: "Why are you feeling this way?"
+      - title: ""
         type: "free"
         name: "sad_why"
         inline: true
