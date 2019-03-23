@@ -1,10 +1,12 @@
 import contentloader
 
-fixture_path = './slinky/app/test_content.yaml'
+fixture_path = '/app/test_content.yaml'
+
 
 def test_loads_yaml():
     pages = contentloader.load_questions(fixture_path)
     assert pages is not None
+
 
 def test_loads_provisions():
     provisions = contentloader.load_provisions(fixture_path)
