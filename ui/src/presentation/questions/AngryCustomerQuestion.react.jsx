@@ -8,9 +8,9 @@ const AngryCustomer = () => {
         <a href="/" draggable="false" className="govuk-button">
           Home
         </a>
-        <h2 className="govuk-heading-l">You're an unhappy customer!</h2>
+        <h2 className="govuk-heading-l">Did you know you can get access to local support here?</h2>
         <p className="govuk-body-l">
-          We're sorry that you feel unhappy about our service.
+            <a href="https://www.mindwell-leeds.org.uk/">MindWell Leeds</a>
         </p>
       </div>
       <Footer />
