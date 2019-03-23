@@ -1,5 +1,6 @@
 import uuid
 import json
+import random
 
 from flask import Flask, request, Response
 from yaml import load, Loader
@@ -36,6 +37,13 @@ class SlinkyApp:
 
         self.questions = load_questions()
 
+    @staticmethod
+    def load_from_friendly_code(friendly_code):
+        for key in application.munjoe_db.keys():
+            if 'friendly_code' in application.munjoe_db[key]:
+                if application.munjoe_db[key]['friendly_code'] == friendly_code:
+                    return SlinkyApp(key)
+
     def retrieve_last_question(self, question_id):
         return next(questidataon for question in self.questions if question.get('id') == question_id)
 
@@ -62,6 +70,12 @@ class SlinkyApp:
     def get_answers(self):
         answers = self.data
         return answers
+
+    def get_friendly_code(self):
+        words = [random.choice(small_words) for _ in range(0, 2)]
+        friendly_code = ".".join(words)
+        self.data['friendly_code'] = friendly_code
+        return friendly_code
 
 
 def generate_session():
@@ -107,6 +121,11 @@ def response():
 def answers():
     session_id = request.args.get('sessionId', '')
 
-    app = SlinkyApp(session_id)
+    if not session_id:
+        friendly_code = request.args.get('friendlyCode', '')
+        app = SlinkyApp.load_from_friendly_code(friendly_code)
+    else:
+        app = SlinkyApp(session_id)
     a = app.get_answers()
     return _create_question_response(a)
+
