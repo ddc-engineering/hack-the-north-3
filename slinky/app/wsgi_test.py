@@ -35,7 +35,7 @@ def test_response(client):
                                                            answer_id=3)),
                      content_type='application/json')
 
-    assert rs.status == "2001 OK"
+    assert rs.status == "200 OK"
 
     #rs = client.get(f'/api/answers?sessionId={session_id}')
     #assert rs.data == b'{"answers": [{"question_id": 1, "answer_id": 1}, {"question_id": 2, "answer_id": 3}]}'

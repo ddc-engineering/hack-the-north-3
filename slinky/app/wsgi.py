@@ -22,7 +22,6 @@ with open('/app/small_words.txt') as f:
     for word in f.readlines():
         small_words.append(word.replace("\n", ""))
 
-return
 class SlinkyApp:
     def __init__(self, session_id=None):
 
