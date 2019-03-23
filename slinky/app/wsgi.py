@@ -129,30 +129,21 @@ def response():
     session_id = post_body["sessionId"]
     app = SlinkyApp(session_id)
 
-    print('FRIENDLY CODE')
-    print(app.data['friendlyCode'])
-    #friendly_code = "friendly.code" # app.data["friendlyCode"]
-
-    friendly_code = "-".join([random.choice(small_words) for _ in range(0, 2)])
+    friendly_code = app.data["friendlyCode"]
 
     if free_text and is_sentiment_concerning(free_text):
         return _create_question_response({'angry_customer': True})
 
     q = app.get_next_question(question_id, answer_id)
     if not q:
-        return create_provisions_response({
-            "friendly_code": "steep-horse",
-            "provisions": [
-                {
-                    "name": "Training",
-                    "items": [
-                        "https://www.leeds.gov.uk/residents/learning-and-job-opportunities/learning-opportunities",
-                        "https://doinggoodleeds.org.uk/training-courses/",
-                        "You might want to consider booking an appointment with a work coach at your local Jobcentre Plus",
-                    ],
-                }
-            ],
-        })
+        questions = [ q['question_id'] for q in app.data['answers'] ]
+        if len(questions) == 0:
+            return _create_question_response({'title': 'There has been a problem fetching your answers.'})
+            
+        provisions = app.provisions_engine.get_provisions_for_questions(questions)
+        if provisions is None or len(provisions) == 0:
+            return _create_question_response({'title': 'No provisions were found'})
+        return create_provisions_response(provisions, friendly_code)
 
     return _create_question_response(q, app.session_id)
 
@@ -169,6 +160,7 @@ def answers():
             raise ValueError(f"A session for the friendly code '{friendly_code}' was not found")
     else:
         app = SlinkyApp(session_id)
+        friendly_code = app.data["friendlyCode"]
     a = app.get_answers()
 
     questions = [ q['question_id'] for q in app.data['answers'] ]
@@ -180,8 +172,6 @@ def answers():
         return _create_question_response({'title': 'No provisions were found'})
 
     return create_provisions_response(provisions, friendly_code)
-    #return _create_question_response(a)
-
 
 def is_sentiment_concerning(text):
     html_text = urllib.parse.quote(text, safe='')
