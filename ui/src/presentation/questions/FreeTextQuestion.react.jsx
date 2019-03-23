@@ -4,10 +4,10 @@ export default class FreeTextQuestion extends React.Component {
   render() {
     const { title, hint, name } = this.props;
     return (
-      <div class="govuk-form-group">
+      <div className="govuk-form-group">
         <h1 className="govuk-heading-m">{title}</h1>
         {hint ? (
-          <span id={`${name}-hint`} class="govuk-hint">
+          <span id={`${name}-hint`} className="govuk-hint">
             {hint}
           </span>
         ) : null}

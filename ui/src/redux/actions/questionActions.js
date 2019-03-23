@@ -17,6 +17,7 @@ const nextQuestion = payload => {
 
 export const respondToApi = response => {
   const cookies = new Cookies();
+  console.log(response);
   const sessionId = cookies.get("session-cookie");
   return dispatch => {
     axios
