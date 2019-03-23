@@ -99,9 +99,9 @@ class SlinkyApp:
 
         self.question_index += 1
 
+        curr = get_db_cursor()
         sql = """update user_sessions set current_question = %s where session_id = %s"""
         curr.execute(sql, (self.question_index, self.session_id))
-
 
         return question
 
