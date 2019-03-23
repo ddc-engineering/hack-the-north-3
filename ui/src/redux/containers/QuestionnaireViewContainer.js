@@ -5,7 +5,8 @@ import { respondToApi } from "../actions/questionActions";
 const mapStateToProps = state => {
   return {
     pageView: state.question.pageView,
-    ready: state.question.ready
+    ready: state.question.ready,
+    angryCustomer: state.question.angryCustomer
   };
 };
 

@@ -1,8 +1,15 @@
 import React from "react";
 
 export default class FreeTextQuestion extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentInput: ""
+    };
+  }
   render() {
-    const { title, hint, name } = this.props;
+    const { title, hint, name, passTextThrough } = this.props;
+    const { currentInput } = this.state;
     return (
       <div className="govuk-form-group">
         <h1 className="govuk-heading-m">{title}</h1>
@@ -14,8 +21,12 @@ export default class FreeTextQuestion extends React.Component {
         <textarea
           className="govuk-textarea"
           id={name}
-          name={name}
-          rows="5"
+          value={currentInput}
+          onChange={event => {
+            this.setState({ currentInput: event.target.value });
+            passTextThrough(event.target.value);
+          }}
+          rows={5}
           aria-describedby={`${name}-hint`}
         />
       </div>

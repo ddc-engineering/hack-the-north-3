@@ -1,7 +1,8 @@
 import * as types from "../constants/actionTypes";
 
 const initialState = {
-  ready: false
+  ready: false,
+  angryCustomer: false
 };
 
 const questionReducer = (state = initialState, action) => {
@@ -10,6 +11,8 @@ const questionReducer = (state = initialState, action) => {
       return { ...state, ready: true, pageView: action.payload };
     case types.NEXT_QUESTION:
       return { ...state, pageView: action.payload };
+    case types.ANGRY_CUSTOMER:
+      return { ...state, angryCustomer: true };
     default:
       return state;
   }
