@@ -26,6 +26,7 @@ def get_db_cursor():
         g.conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         g.cur = g.conn.cursor()
         g.cur.execute(schema)
+        g.cur.commit()
     return g.cur
 
 
@@ -48,20 +49,27 @@ class SlinkyApp:
 
     def __init__(self, session_id=None):
 
-        conn = get_db_cursor()
+        curr = get_db_cursor()
 
         if not session_id:
             session_id = generate_session()
 
             sql = """insert into user_sessions(session_id, current_question) values (%s, %s)"""
-            conn.execute(sql, (session_id, 0))
+            curr.execute(sql, (session_id, 0))
+            curr.commit()
         else:
-            #if session_id not in db:
-            #    raise ValueError(f"The session id {session_id} was not found in the database")
+            sql = """select session_id from user_sessions where session_id = %s"""
+            curr.execute(sql, (session_id,))
+
+            res = curr.fetchone()
+
+            print(res)
+
+            if not res:
+                raise ValueError(f"The session id {session_id} was not found in the database")
             pass
 
         self.session_id = session_id
-        #self.data = db[session_id]
 
         self.question_index = 0
 
