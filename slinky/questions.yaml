@@ -37,13 +37,13 @@
      inline: "true"
      options:
        - id: 1
-         value: "male"
+         value: "potato"
          hint: "male hint"
-         text: "Male"
+         text: "potato"
        - id: 2
-         value: "female"
+         value: "tomato"
          hint: "female hint"
-         text: "Female"
+         text: "tomato"
      next:
       - option: 1
         question: 3
@@ -66,12 +66,12 @@
          text: "Male"
      next:
       - option: 1
-        question: 5
+        question: 4
 
 - page:
   title: "True, False"
   hint: "The questions page"
-  id: 5
+  id: 4
 
   questions:
    - title: "True, False"
