@@ -1,5 +1,6 @@
 import uuid
 import json
+import random
 
 from flask import Flask, request, Response
 import contentloader as contentloader
@@ -26,24 +27,26 @@ class SlinkyApp:
             session_id = generate_session()
             application.munjoe_db[session_id] = dict()
             application.munjoe_db[session_id]['answers'] = []
+
+            friendly_code = "-".join([random.choice(small_words) for _ in range(0, 2)])
+            application.munjoe_db[session_id]['friendlyCode'] = friendly_code
+            
         else:
             if session_id not in application.munjoe_db:
                 raise ValueError(f"The session id {session_id} was not found in the database")
 
         self.session_id = session_id
         self.data = application.munjoe_db[session_id]
-
-
         self.questions = contentloader.load_questions('/app/questions.yaml')
 
     def retrieve_last_question(self, question_id):
-        return next((question for question in self.questions if question.get('id') == id), None)
+        return next((question for question in self.questions if question.get('id') == question_id), None)
 
     def get_first_question(self):
         return self.get_question_by_id(1)
 
-    def get_question_by_id(self, id):
-        return next(question for question in self.questions if question.get('id') == id)
+    def get_question_by_id(self, question_id):
+        return next(question for question in self.questions if question.get('id') == question_id)
 
     def get_next_question(self, question_id, answer_id):
         self.data['answers'].append({
@@ -67,7 +70,7 @@ class SlinkyApp:
     def load_from_friendly_code(friendly_code):
         for key in application.munjoe_db.keys():
             if 'friendly_code' in application.munjoe_db[key]:
-                if application.munjoe_db[key]['friendly_code'] == friendly_code:
+                if lower(application.munjoe_db[key]['friendly_code']) == lower(friendly_code):
                     return SlinkyApp(key)
 
 
@@ -89,7 +92,6 @@ def start():
     app = SlinkyApp()
 
     q = app.get_first_question()
-    session_id = app.session_id
 
     return _create_question_response(q, app.session_id)
 
@@ -102,6 +104,7 @@ def response():
     question_id = post_body["question_id"]
     answer_id = post_body["answer_id"]
     free_text = post_body.get("free_text")
+
     if free_text and is_sentiment_concerning(free_text):
         return _create_question_response({'angry_customer': True})
 
@@ -110,6 +113,7 @@ def response():
     if not q:    
         # should get the helpful urls
         q = {'helpful_url': 'xxxxx'}
+
     return _create_question_response(q, app.session_id)
 
 
