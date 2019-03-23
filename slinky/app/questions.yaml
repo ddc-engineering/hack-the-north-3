@@ -165,10 +165,16 @@ pages:
 
 provisions:
   - name: "Training"
+    items:
+      - "http://link1.com"
+      - "http://link2.com"
+      - "Here's a simple explanation about this"
     questions:
       - 1
       - 2
   - name: "IT Jobs"
+    items:
+      - "http://link1.com"
     questions:
       - 1
       - 3

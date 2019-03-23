@@ -1,32 +1,23 @@
 import React from "react";
 import CheckboxQuestion from "../CheckboxQuestion.react";
-import RadioQuestion from "../RadioQuestion.react";
+import RadioQuestion from "../questions/RadioButtonQuestion.react";
 import Cookie from "universal-cookie";
 import BinaryQuestion from "../questions/BinaryQuestion.react";
-
+import FreeTextQuestion from "../questions/FreeTextQuestion.react";
 export default class QuestionnaireView extends React.Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
-    this.onSubmitHandler = this.onSubmitHandler.bind(this);
+    this.submitResponse = this.submitResponse.bind(this);
   }
-  onSubmitHandler(event) {
-    event.preventDefault();
-    const { respondToApi, pageView } = this.props;
-    const { answer_id } = this.state;
-    respondToApi({ ...this.state, question_id: pageView.id, answer_id });
+  submitResponse(response) {
+    const { respondToApi } = this.props;
+    respondToApi(response);
   }
   handleChange(id) {
     this.setState({ answer_id: id });
   }
-  // componentDidMount() {
-  //   const cookie = new Cookie();
-  //   const sessionId = cookie.get("session-cookie");
-  //   if (sessionId) {
-  //     const { restoreSession } = this.props;
-  //     restoreSession(sessionId);
-  //   }
-  // }
+
   renderQuestionContent() {
     const { pageView } = this.props;
     if (!pageView.questions) {
@@ -39,11 +30,26 @@ export default class QuestionnaireView extends React.Component {
           return returnQuestions;
         case "radio":
           returnQuestions.push(
-            <RadioQuestion {...questionData} changeInput={this.handleChange} />
+            <RadioQuestion {...questionData} onChange={this.submitResponse} />
           );
           return returnQuestions;
         case "binary":
-          returnQuestions.push(<BinaryQuestion {...questionData} />);
+          returnQuestions.push(
+            <BinaryQuestion
+              {...questionData}
+              standardResponse={this.submitResponse}
+            />
+          );
+          return returnQuestions;
+        case "freetext":
+          returnQuestions.push(
+            <FreeTextQuestion
+              {...questionData}
+              standardResponse={this.submitResponse}
+            />
+          );
+          return returnQuestions;
+
         default:
           return returnQuestions;
       }

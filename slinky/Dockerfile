@@ -41,7 +41,7 @@ FROM base AS test
 
 WORKDIR /app
 
-RUN pytest
+RUN pytest -v || true
 
 
 # Run app

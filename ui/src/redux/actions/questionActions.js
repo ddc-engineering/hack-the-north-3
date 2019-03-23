@@ -7,7 +7,7 @@ import history from "../../history";
 const questionnaireStartEvent = payload => {
   const cookies = new Cookies();
   cookies.set("session-cookie", payload.sessionId, { path: "/" });
-  history.push("/start");
+  history.push("/questionnaire");
   return { type: types.START_QUESTIONNAIRE, payload };
 };
 
@@ -37,22 +37,6 @@ export const respondToApi = response => {
   };
 };
 
-export const restoreSession = sessionId => {
-  return dispatch => {
-    axios(`${APIEndpoints.restoreSession}?sessionId=${sessionId}`, {
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => {
-        dispatch(questionnaireStartEvent(response.data));
-      })
-      .catch(() => {
-        window.location.href = "/";
-      });
-  };
-};
 export const startQuestionnaire = () => {
   return dispatch => {
     axios(APIEndpoints.start, {
