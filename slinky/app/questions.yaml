@@ -12,19 +12,15 @@ pages:
         options:
           - id: 1
             value: "work"
-            hint: "I need help finding work"
             text: "I need help finding work"
           - id: 2
             value: "work_experience"
-            hint: "I need help finding work experience"
             text: "I need help finding work experience"
           - id: 3
             value: "education_training"
-            hint: "I need help getting training or education"
             text: "I need help getting training or education"
           - id: 4
             value: "benefits"
-            hint: "I need help claiming benefits"
             text: "I need help claiming benefits"
         next:
           - option: 1
