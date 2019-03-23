@@ -52,7 +52,7 @@ class SlinkyApp:
         return self.get_question_by_id(1)
 
     def get_question_by_id(self, question_id):
-        return next(question for question in self.questions if question.get('id') == question_id)
+        return next((question for question in self.questions if question.get('id') == question_id), None)
 
     def get_next_question(self, question_id, answer_id):
         self.data['answers'].append({
