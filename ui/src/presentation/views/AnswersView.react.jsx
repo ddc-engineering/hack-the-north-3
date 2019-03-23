@@ -82,7 +82,7 @@ export default class AnswersView extends React.Component {
               <div className="govuk-panel__body">
                 Your Passphrase
                 <br />
-                <strong>{data.passphrase}</strong>
+                <strong>{data.friendly_code}</strong>
                 <p className="govuk-panel__body" style={{ fontSize: "0.75em" }}>
                   You will need this passphrase to use access your results at a
                   later date.

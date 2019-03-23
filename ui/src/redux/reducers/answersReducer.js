@@ -16,7 +16,12 @@ const answersReducer = (state = initialState, action) => {
     case types.QUERY_COMPLETE:
       return { ...state, ...action.payload, ready: true, loading: false };
     case types.QUESTIONNAIRE_FINISHED:
-      return { ...state };
+      return {
+        ...state,
+        ready: true,
+        fromQuestionnaire: true,
+        data: { ...action.payload }
+      };
     default:
       return state;
   }
