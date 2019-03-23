@@ -69,7 +69,6 @@ def generate_session():
 
 
 def _create_question_response(page_view: dict, session_id=None):
-    print(page_view)
     if session_id:
         page_view['sessionId'] = session_id
     resp = Response(json.dumps(page_view))
