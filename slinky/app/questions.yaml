@@ -92,11 +92,11 @@ pages:
             question: 4
 
   - page:
-    title: "Why?"
+    title: "Why are you feeling this way?"
     id: 4
 
     questions:
-      - title: "Why?"
+      - title: "Why are you feeling this way?"
         type: "free"
         name: "sad_why"
         inline: true
