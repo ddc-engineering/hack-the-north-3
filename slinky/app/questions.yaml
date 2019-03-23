@@ -79,6 +79,27 @@ pages:
             value: "female"
             hint: "female hint"
             text: "Female"
+        next:
+          - option: 1
+            question: 5
+          - option: 2
+            question: 5
+
+
+
+  - page:
+    title: "Slidey page"
+    hint: "The questions page"
+    id: 5
+
+    questions:
+      - title: "On a scale of 1 - 5 how much of a slidey question is this"
+        hint: "This is slidey hint"
+        type: "slider"
+        name: "slidey"
+        inline: true
+        options:
+          range: 5
 
 provisions:
   - name: "Training"
