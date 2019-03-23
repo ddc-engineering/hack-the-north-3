@@ -29,11 +29,11 @@ def get_db_cursor():
     return g.cur
 
 
-@application.teardown_appcontext
-def teardown_db(g):
-    conn = g.pop('conn', None)
-    if conn:
-        conn.close()
+# @application.teardown_appcontext
+# def teardown_db(g):
+#     conn = g.pop('conn', None)
+#     if conn:
+#         conn.close()
 
 
 def load_questions() -> dict:
