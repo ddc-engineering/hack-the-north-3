@@ -17,17 +17,11 @@ class App extends Component {
         <div className="App">
           <Header />
           <Router />
-          {/* <Footer /> */}
+          <Footer />
         </div>
       </Provider>
     );
   }
 }
-
-const thing = {
-  title: "Title",
-  headers: ["Thing1", "Thing2"],
-  data: [["Item1", "Item2"], ["Item3", "Item4"]]
-};
 
 export default App;

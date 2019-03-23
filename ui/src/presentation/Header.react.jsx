@@ -11,7 +11,7 @@ export default class Header extends React.Component {
                 href="/"
                 className="govuk-header__link govuk-header__link--homepage"
               >
-                <span class="govuk-header__logotype">
+                <span className="govuk-header__logotype">
                   <svg
                     role="presentation"
                     focusable="false"
@@ -36,7 +36,7 @@ export default class Header extends React.Component {
                 </span>
               </a>
             </div>
-            <div class="govuk-header__content">
+            <div className="govuk-header__content">
               <a
                 href="/"
                 className="govuk-header__link govuk-header__link--service-name"
@@ -46,7 +46,7 @@ export default class Header extends React.Component {
               <nav>
                 <ul
                   id="navigation"
-                  class="govuk-header__navigation "
+                  className="govuk-header__navigation "
                   aria-label="Top Level Navigation"
                 />
               </nav>

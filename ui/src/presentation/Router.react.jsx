@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
 import QuestionnaireViewContainer from "../redux/containers/QuestionnaireViewContainer";
 import HomeViewContainer from "../redux/containers/HomeViewContainer";
 import AnswersViewContainer from "../redux/containers/AnswersViewContainer";

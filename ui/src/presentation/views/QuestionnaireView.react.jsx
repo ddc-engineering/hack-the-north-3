@@ -1,7 +1,6 @@
 import React from "react";
 import CheckboxQuestion from "../CheckboxQuestion.react";
 import RadioQuestion from "../questions/RadioButtonQuestion.react";
-import Cookie from "universal-cookie";
 import BinaryQuestion from "../questions/BinaryQuestion.react";
 import FreeTextQuestion from "../questions/FreeTextQuestion.react";
 export default class QuestionnaireView extends React.Component {
@@ -24,7 +23,8 @@ export default class QuestionnaireView extends React.Component {
     }
   }
   handleChange(id) {
-    this.setState({ answer_id: id });
+    const { pageView } = this.props;
+    this.setState({ answer_id: id, question_id: pageView.id });
   }
 
   renderQuestionContent() {
@@ -102,7 +102,7 @@ export default class QuestionnaireView extends React.Component {
                   event.preventDefault();
                   this.submitResponse();
                 }}
-                class="govuk-button"
+                className="govuk-button"
               >
                 Continue
               </button>

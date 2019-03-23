@@ -4,8 +4,8 @@ const RenderRows = props => {
   const { data } = props;
   return data.reduce((renderedRows, row) => {
     renderedRows.push(
-      <div class="govuk-summary-list__row">
-        <dd class="govuk-summary-list__value">
+      <div className="govuk-summary-list__row">
+        <dd className="govuk-summary-list__value">
           <a href={row}>{row}</a>
         </dd>
       </div>
@@ -26,9 +26,9 @@ export default class AnswersView extends React.Component {
       renderedProvisions.push(
         <div>
           <h3 className="govuk-heading-m">{provision.name}</h3>
-          <dl class="govuk-summary-list">
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">Links</dt>
+          <dl className="govuk-summary-list">
+            <div className="govuk-summary-list__row">
+              <dt className="govuk-summary-list__key">Links</dt>
             </div>
             {<RenderRows data={provision.items} />}
           </dl>
@@ -52,8 +52,8 @@ export default class AnswersView extends React.Component {
           <p className="govuk-body-l">
             Enter your passphrase below to access your results.
           </p>
-          <div class="govuk-form-group">
-            <label class="govuk-label" for="event-name">
+          <div className="govuk-form-group">
+            <label className="govuk-label" for="event-name">
               Passphrase
             </label>
             <input
@@ -79,9 +79,9 @@ export default class AnswersView extends React.Component {
       return (
         <div className="margin-top-title" style={{ paddingBottom: 200 }}>
           {fromQuestionnaire ? (
-            <div class="govuk-panel govuk-panel--confirmation">
-              <h1 class="govuk-panel__title">Questionnaire Complete</h1>
-              <div class="govuk-panel__body">
+            <div className="govuk-panel govuk-panel--confirmation">
+              <h1 className="govuk-panel__title">Questionnaire Complete</h1>
+              <div className="govuk-panel__body">
                 Your Passphrase
                 <br />
                 <strong>{data.passphrase}</strong>

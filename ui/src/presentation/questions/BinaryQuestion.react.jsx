@@ -9,7 +9,7 @@ export default class BinaryQuestion extends React.Component {
     });
   }
   render() {
-    const { title, hint } = this.props;
+    const { hint } = this.props;
     return (
       <div>
         <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
@@ -20,8 +20,8 @@ export default class BinaryQuestion extends React.Component {
             {hint}
           </span>
         ) : null}
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-one-half">
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-one-half">
             <button
               type="button"
               className="govuk-button govuk-button-fullwidth"
@@ -30,7 +30,7 @@ export default class BinaryQuestion extends React.Component {
               Yes
             </button>
           </div>
-          <div class="govuk-grid-column-one-half">
+          <div className="govuk-grid-column-one-half">
             <button
               type="button"
               className="govuk-button govuk-button-fullwidth"
