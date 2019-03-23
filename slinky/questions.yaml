@@ -1,10 +1,10 @@
 - page:
-  id: "question1"
+  id: 1
   title: "Slinky ques"
   hint: "The questions page"
 
   questions:
-   - title: "Are you male or female"
+   - title: "True or False"
      hint: "This is a test radio hint"
      type: "radio"
      name: "gender"
@@ -18,18 +18,19 @@
          value: "female"
          hint: "female hint"
          text: "Female"
-       - id: 3
-         value: "other"
-         hint: "other hint"
-         text: "Other"
+     next:
+      - option: 1
+        question: 2
+      - option: 2
+        question: 2
 
 - page:
-  title: "Slinky ques"
+  title: "True, False"
   hint: "The questions page"
-  id: "question2"
+  id: 2
 
   questions:
-   - title: "Are you male or female 2"
+   - title: "True, False"
      hint: "This is a test radio hint 2"
      type: "radio"
      name: "gender"
@@ -43,8 +44,48 @@
          value: "female"
          hint: "female hint"
          text: "Female"
-       - id: 3
-         value: "other"
-         hint: "other hint"
-         text: "Other"
+     next:
+      - option: 1
+        question: 3
+
+- page:
+  title: "Free text"
+  hint: "The questions page"
+  id: 3
+
+  questions:
+   - title: "Would you like to type"
+     hint: "you can type here"
+     type: "free-text"
+     name: "text field"
+     inline: "true"
+     options:
+       - id: 1
+         value: "male"
+         hint: "male hint"
+         text: "Male"
+     next:
+      - option: 1
+        question: 5
+
+- page:
+  title: "True, False"
+  hint: "The questions page"
+  id: 5
+
+  questions:
+   - title: "True, False"
+     hint: "This is a test radio hint 2"
+     type: "radio"
+     name: "gender"
+     inline: "true"
+     options:
+       - id: 1
+         value: "male"
+         hint: "male hint"
+         text: "Male"
+       - id: 2
+         value: "female"
+         hint: "female hint"
+         text: "Female"
 
