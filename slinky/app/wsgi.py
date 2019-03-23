@@ -22,6 +22,7 @@ with open('/app/small_words.txt') as f:
     for word in f.readlines():
         small_words.append(word.replace("\n", ""))
 
+
 class SlinkyApp:
     def __init__(self, session_id=None):
 
@@ -56,7 +57,7 @@ class SlinkyApp:
         print(question)
         print(question_id)
         return question
-
+        
     def get_next_question(self, question_id, answer_id):
         self.data['answers'].append({
             'question_id': question_id,
@@ -93,9 +94,9 @@ def create_provisions_response(provisions, passphrase=None):
             {
                 "name": "Training",
                 "items": [
-                    "http://link1.com",
-                    "http://link2.com",
-                    "Here's a simple explanation about this",
+                    "https://www.leeds.gov.uk/residents/learning-and-job-opportunities/learning-opportunities",
+                    "https://doinggoodleeds.org.uk/training-courses/",
+                    "You might want to consider booking an appointment with a work coach at your local Jobcentre Plus",
                 ],
             }
         ],
@@ -134,8 +135,19 @@ def response():
     app = SlinkyApp(session_id)
     q = app.get_next_question(question_id, answer_id)
     if not q:
-        # should get the helpful urls
-        q = {'helpful_url': 'xxxxx'}
+        return create_provisions_response({
+            "friendly_code": "",
+            "provisions": [
+                {
+                    "name": "Training",
+                    "items": [
+                        "https://www.leeds.gov.uk/residents/learning-and-job-opportunities/learning-opportunities",
+                        "https://doinggoodleeds.org.uk/training-courses/",
+                        "You might want to consider booking an appointment with a work coach at your local Jobcentre Plus",
+                    ],
+                }
+            ],
+        })
 
     return _create_question_response(q, app.session_id)
 
