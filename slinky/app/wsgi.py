@@ -30,7 +30,7 @@ class SlinkyApp:
 
             friendly_code = "-".join([random.choice(small_words) for _ in range(0, 2)])
             application.munjoe_db[session_id]['friendlyCode'] = friendly_code
-            
+
         else:
             if session_id not in application.munjoe_db:
                 raise ValueError(f"The session id {session_id} was not found in the database")
@@ -124,6 +124,8 @@ def answers():
     if not session_id:
         friendly_code = request.args.get('friendlyCode', '')
         app = SlinkyApp.load_from_friendly_code(friendly_code)
+        if not app:
+            raise ValueError(f"A session for the friendly code '{friendly_code}' was not found")
     else:
         app = SlinkyApp(session_id)
     a = app.get_answers()
