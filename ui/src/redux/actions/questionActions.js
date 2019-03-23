@@ -3,6 +3,7 @@ import APIEndpoints from "../constants/endpoints";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import history from "../../history";
+import { getResults } from "./answersActions";
 
 const questionnaireStartEvent = payload => {
   const cookies = new Cookies();
@@ -35,8 +36,11 @@ export const respondToApi = response => {
         }
       )
       .then(response => {
+        console.table(response.data);
         if (response.data.angry_customer) {
           dispatch(angryCustomer());
+        } else if (!response.data.questions) {
+          dispatch(getResults(response.data));
         } else {
           dispatch(nextQuestion(response.data));
         }
