@@ -43,6 +43,7 @@ class SlinkyApp:
 
         self.questions = contentloader.load_questions('/app/questions.yaml')
         self.provisions = contentloader.load_provisions('/app/questions.yaml')
+        print(self.questions)
         self.provisions_engine = ProvisionsEngine(self.provisions)
 
     def retrieve_last_question(self, question_id):
@@ -52,8 +53,11 @@ class SlinkyApp:
         return self.get_question_by_id(1)
 
     def get_question_by_id(self, question_id):
-        return next((question for question in self.questions if question.get('id') == question_id), None)
-
+        question = next((question for question in self.questions if question.get('id') == question_id), None)
+        print(question)
+        print(question_id)
+        return question
+        
     def get_next_question(self, question_id, answer_id):
         self.data['answers'].append({
             'question_id': question_id,
