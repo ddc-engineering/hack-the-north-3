@@ -22,10 +22,12 @@ export default class QuestionnaireView extends React.Component {
     this.setState({ freeTextValue: text });
   }
   submitResponse(response = false) {
+    console.table(response);
     const { freeTextValue } = this.state;
     const { respondToApi } = this.props;
     if (freeTextValue !== "") {
       const { question_id, freeTextValue } = this.state;
+      this.setState({ freeTextValue: "" });
       return respondToApi({
         question_id,
         answer_id: 1,
@@ -57,7 +59,6 @@ export default class QuestionnaireView extends React.Component {
     if (!pageView.questions) {
       return null;
     }
-    console.log(pageView);
     return pageView.questions.reduce((returnQuestions, questionData) => {
       switch (questionData.type) {
         case "checkbox":
@@ -72,12 +73,12 @@ export default class QuestionnaireView extends React.Component {
           returnQuestions.push(
             <BinaryQuestion
               {...questionData}
+              questionId={pageView.id}
               standardResponse={this.submitResponse}
             />
           );
           return returnQuestions;
         case "free":
-          console.log("YText");
           returnQuestions.push(
             <FreeTextQuestion
               {...questionData}

@@ -12,7 +12,7 @@ const questionReducer = (state = initialState, action) => {
     case types.NEXT_QUESTION:
       return { ...state, pageView: action.payload };
     case types.ANGRY_CUSTOMER:
-      return { ...state, angryCustomer: true };
+      return { ...initialState, angryCustomer: true };
     default:
       return state;
   }

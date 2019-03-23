@@ -30,7 +30,6 @@ export default class RadioQuestion extends React.Component {
   }
   render() {
     const { inline, title, hint, options } = this.props;
-    console.log(this.props);
     return (
       <fieldset className="govuk-fieldset" aria-describedby="changed-name-hint">
         <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">

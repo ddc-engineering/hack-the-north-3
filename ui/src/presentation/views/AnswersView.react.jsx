@@ -20,8 +20,6 @@ export default class AnswersView extends React.Component {
     this.handlePassphraseQuery = this.handlePassphraseQuery.bind(this);
   }
   renderProvisions(provisionData) {
-    console.log(provisionData);
-
     return provisionData.reduce((renderedProvisions, provision) => {
       renderedProvisions.push(
         <div>
