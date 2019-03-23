@@ -125,6 +125,7 @@ def response():
     post_body = request.json
 
     session_id = post_body["sessionId"]
+    friendly_code = app.data["friendlyCode"]
     question_id = post_body["question_id"]
     answer_id = post_body["answer_id"]
     free_text = post_body.get("free_text")
@@ -136,7 +137,7 @@ def response():
     q = app.get_next_question(question_id, answer_id)
     if not q:
         return create_provisions_response({
-            "friendly_code": "",
+            "friendly_code": friendly_code,
             "provisions": [
                 {
                     "name": "Training",
@@ -168,11 +169,11 @@ def answers():
 
     questions = [ q['question_id'] for q in app.data['answers'] ]
     if len(questions) == 0:
-        return _create_question_response({'text': 'There has been a problem fetching your answers.'})
+        return _create_question_response({'title': 'There has been a problem fetching your answers.'})
         
     provisions = app.provisions_engine.get_provisions_for_questions(questions)
     if provisions is None or len(provisions) == 0:
-        return _create_question_response({'text': 'No provisions were found'})
+        return _create_question_response({'title': 'No provisions were found'})
 
     return create_provisions_response(provisions, friendly_code)
     #return _create_question_response(a)
