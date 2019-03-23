@@ -13,7 +13,7 @@ export default class BinaryQuestion extends React.Component {
     return (
       <div>
         <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
-          <h1 className="govuk-fieldset__heading">{title}</h1>
+          {/* <h1 className="govuk-fieldset__heading">{title}</h1> */}
         </legend>
         {hint ? (
           <span id="nationality-hint" className="govuk-hint">

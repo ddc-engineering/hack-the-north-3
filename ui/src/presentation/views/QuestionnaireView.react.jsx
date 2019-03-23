@@ -9,10 +9,19 @@ export default class QuestionnaireView extends React.Component {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.submitResponse = this.submitResponse.bind(this);
+    this.state = {
+      answer_id: null,
+      question_id: null
+    };
   }
-  submitResponse(response) {
+  submitResponse(response = false) {
     const { respondToApi } = this.props;
-    respondToApi(response);
+    if (response == false) {
+      const { answer_id, question_id } = this.state;
+      respondToApi({ answer_id, question_id });
+    } else {
+      respondToApi(response);
+    }
   }
   handleChange(id) {
     this.setState({ answer_id: id });
@@ -30,7 +39,7 @@ export default class QuestionnaireView extends React.Component {
           return returnQuestions;
         case "radio":
           returnQuestions.push(
-            <RadioQuestion {...questionData} onChange={this.submitResponse} />
+            <RadioQuestion {...questionData} handleClick={this.handleChange} />
           );
           return returnQuestions;
         case "binary":
@@ -57,6 +66,7 @@ export default class QuestionnaireView extends React.Component {
   }
   render() {
     const { pageView, ready } = this.props;
+
     if (!ready) {
       return (
         <div className="question-container">
@@ -86,7 +96,14 @@ export default class QuestionnaireView extends React.Component {
               {this.renderQuestionContent()}
             </div>
             {pageView.questions[0].type === "binary" ? null : (
-              <button type="submit" class="govuk-button">
+              <button
+                type="submit"
+                onClick={event => {
+                  event.preventDefault();
+                  this.submitResponse();
+                }}
+                class="govuk-button"
+              >
                 Continue
               </button>
             )}
