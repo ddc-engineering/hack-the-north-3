@@ -11,7 +11,7 @@
     }
   },
   "environments": {
-    "test": {
+    "production": {
       "scripts": {
         "test": "pytest"
       }
