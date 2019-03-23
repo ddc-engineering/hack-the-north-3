@@ -36,3 +36,8 @@ def test_response(client):
                      content_type='application/json')
 
     assert rs.status == "200 OK"
+
+    rs = client.get(f'/api/restore?sessionId={session_id}')
+    assert rs.status == "200 OK"
+
+
