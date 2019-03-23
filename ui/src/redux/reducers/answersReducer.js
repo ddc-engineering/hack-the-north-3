@@ -1,19 +1,10 @@
 import * as types from "../constants/actionTypes";
 
 const initialState = {
-  ready: true,
+  ready: false,
   notFound: false,
   loading: false,
-  fromQuestionnaire: true,
-  data: {
-    passphrase: "Test Passphrase",
-    provisions: [
-      {
-        name: "Training",
-        items: ["http://link1.com", "http://link2.com", "http://link3.com"]
-      }
-    ]
-  }
+  fromQuestionnaire: true
 };
 
 const answersReducer = (state = initialState, action) => {

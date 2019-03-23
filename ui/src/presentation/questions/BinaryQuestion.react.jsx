@@ -3,9 +3,9 @@ import React from "react";
 export default class BinaryQuestion extends React.Component {
   returnValidResponse(response) {
     const { questionId, standardResponse } = this.props;
-    standardResponse({
+    return standardResponse({
       question_id: questionId,
-      value_id: response ? 1 : 2
+      answer_id: response ? 1 : 2
     });
   }
   render() {
@@ -25,7 +25,7 @@ export default class BinaryQuestion extends React.Component {
             <button
               type="button"
               className="govuk-button govuk-button-fullwidth"
-              onClick={this.returnValidResponse(true)}
+              onClick={() => this.returnValidResponse(true)}
             >
               Yes
             </button>
@@ -34,7 +34,7 @@ export default class BinaryQuestion extends React.Component {
             <button
               type="button"
               className="govuk-button govuk-button-fullwidth"
-              onClick={this.returnValidResponse(false)}
+              onClick={() => this.returnValidResponse(false)}
             >
               No
             </button>

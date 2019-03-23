@@ -21,7 +21,6 @@ const angryCustomer = () => {
 
 export const respondToApi = response => {
   const cookies = new Cookies();
-  console.log(response);
   const sessionId = cookies.get("session-cookie");
   return dispatch => {
     axios
@@ -36,7 +35,6 @@ export const respondToApi = response => {
         }
       )
       .then(response => {
-        console.log(response.data);
         if (response.data.angry_customer) {
           dispatch(angryCustomer());
         } else {
