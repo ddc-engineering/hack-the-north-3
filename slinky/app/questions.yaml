@@ -1,15 +1,15 @@
 pages:
   - page:
-      id: 1
-      title: "Slinky ques"
-      hint: "The questions page"
+    id: 1
+    title: "Slinky ques"
+    hint: "The questions page"
 
-      questions:
+    questions:
       - title: "True or False"
         hint: "This is a test radio hint"
         type: "radio"
         name: "gender"
-        inline: "true"
+        inline: true
         options:
           - id: 1
             value: "male"
@@ -26,25 +26,15 @@ pages:
             question: 2
 
   - page:
-      title: "True, False"
-      hint: "The questions page"
-      id: 2
+    title: "Yes No"
+    hint: "The questions page"
+    id: 2
 
-      questions:
-      - title: "True, False"
+    questions:
+      - title: "Is your name Tom?"
         hint: "This is a test radio hint 2"
-        type: "radio"
-        name: "gender"
-        inline: "true"
-        options:
-          - id: 1
-            value: "potato"
-            hint: "male hint"
-            text: "potato"
-          - id: 2
-            value: "tomato"
-            hint: "female hint"
-            text: "tomato"
+        type: "binary"
+        name: "Is your name Tom?"
         next:
           - option: 1
             question: 3
@@ -55,31 +45,31 @@ pages:
     id: 3
 
     questions:
-    - title: "Would you like to type"
-      hint: "you can type here"
-      type: "free-text"
-      name: "text field"
-      inline: "true"
-      options:
-        - id: 1
-          value: "male"
-          hint: "male hint"
-          text: "Male"
-      next:
-        - option: 1
-          question: 4
+      - title: "Would you like to type"
+        hint: "you can type here"
+        type: "free-text"
+        name: "text field"
+        inline: true
+        options:
+          - id: 1
+            value: "male"
+            hint: "male hint"
+            text: "Male"
+        next:
+          - option: 1
+            question: 4
 
   - page:
-      title: "True, False"
-      hint: "The questions page"
-      id: 4
+    title: "True, Faoptionlse"
+    hint: "The questions page"
+    id: 4
 
-      questions:
+    questions:
       - title: "True, False"
         hint: "This is a test radio hint 2"
         type: "radio"
         name: "gender"
-        inline: "true"
+        inline: true
         options:
           - id: 1
             value: "male"

@@ -37,13 +37,13 @@ class SlinkyApp:
         self.questions = contentloader.load_questions('/app/questions.yaml')
 
     def retrieve_last_question(self, question_id):
-        return next((questidataon for question in self.questions if question.get('id') == id), None)
+        return next((question for question in self.questions if question.get('id') == id), None)
 
     def get_first_question(self):
         return self.get_question_by_id(1)
 
     def get_question_by_id(self, id):
-        return next((question for question in self.questions if question.get('id') == id), None)
+        return next(question for question in self.questions if question.get('id') == id)
 
     def get_next_question(self, question_id, answer_id):
         self.data['answers'].append({
@@ -89,6 +89,7 @@ def start():
     app = SlinkyApp()
 
     q = app.get_first_question()
+    session_id = app.session_id
 
     return _create_question_response(q, app.session_id)
 
