@@ -24,17 +24,14 @@ pages:
         next:
           - option: 1
             question: 2
-          - option: 2
-            question: 2
           - option: 3
-            question: 2
+            question: 4
           - option: 4
-            question: 2
+            question: 4
 
   - page:
     id: 2
     title: "What is your current work situation?"
-    hint: "What is your current work situation?"
 
     questions:
       - title: "What is your current work situation?"
@@ -45,32 +42,27 @@ pages:
           - id: 1
             value: "less_than_six"
             text: "I have been out of work for less than 6 months."
-            hint: "I have been out of work for less than 6 months."
           - id: 2
             value: "six_to_twelve"
             text: "I have been out of work for between 6 and 12 months."
-            hint: "I have been out of work for between 6 and 12 months."
           - id: 3
             value: "more_than_twelve"
             text: "I have been out of work for more than 12 months."
-            hint: "I have been out of work for more than 12 months."
           - id: 4
             value: "part_time"
             text: "I am employed part-time and am looking for full-time work."
-            hint: "I am employed part-time and am looking for full-time work."
         next:
           - option: 1
-            question: 3
+            question: 4
           - option: 2
-            question: 3
+            question: 4
           - option: 3
-            question: 3
+            question: 4
           - option: 4
-            question: 3
+            question: 4
 
   - page:
     title: "How do you feel about going to work?"
-    hint: "going_to_work"
     id: 3
 
     questions:
@@ -101,19 +93,16 @@ pages:
 
   - page:
     title: "Why?"
-    hint: "Why are you feeling this way?"
     id: 4
 
     questions:
       - title: "Why?"
-        hint: "Why are you feeling this way?"
-        type: "free-text"
+        type: "free"
         name: "sad_why"
         inline: true
         options:
           - id: 1
             value: "free_text"
-            hint: "Why are you feeling this way?"
             text: "Why are you feeling this way?"
         next:
           - option: 1
@@ -121,12 +110,10 @@ pages:
 
   - page:
     title: "Do you need help to feel ready for work?"
-    hint: "Do you need help to feel ready for work?"
     id: 5
 
     questions:
       - title: "Do you need help to feel ready for work?"
-        hint: "Do you need help to feel ready for work?"
         type: "binary"
         name: "work_ready"
         next:
@@ -136,7 +123,6 @@ pages:
   - page:
     id: 6
     title: "How can we help you to feel better about going to work?"
-    hint: "How can we help you to feel better about going to work?"
 
     questions:
       - title: "How can we help you to feel better about going to work?"
@@ -146,15 +132,12 @@ pages:
         options:
           - id: 1
             value: "face_to_face"
-            hint: "I would like to speak to someone face to face."
             text: "I would like to speak to someone face to face."
           - id: 2
             value: "services_info"
-            hint: "I would like more information about the services available."
             text: "I would like more information about the services available."
           - id: 3
             value: "build_confident"
-            hint: "I would like help to be more confident"
             text: "I would like help to be more confident"
 
 provisions:
@@ -172,3 +155,12 @@ provisions:
     questions:
       - 1
       - 3
+  - name: "Mental Health"
+    items:
+      - "https://www.mindwell-leeds.org.uk/"
+      - "http://www.leedsmind.org.uk/"
+      - "https://www.nhs.uk/conditions/stress-anxiety-depression/mood-self-assessment/"
+    questions:
+      - 3
+      - 4
+      - 5
