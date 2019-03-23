@@ -44,11 +44,11 @@ WORKDIR /app
 RUN pytest
 
 
-# # Run app
-# FROM base AS run
+# Run app
+FROM base AS run
 
-# ENTRYPOINT [ "/usr/bin/supervisord" ]
+ENTRYPOINT [ "/usr/bin/supervisord" ]
 
-# EXPOSE 5000
+EXPOSE 5000
 
-# HEALTHCHECK CMD curl --silent --fail localhost:5000/alive || exit 1
+HEALTHCHECK CMD curl --silent --fail localhost:5000/alive || exit 1
