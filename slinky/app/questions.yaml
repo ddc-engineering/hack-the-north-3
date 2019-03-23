@@ -2,7 +2,6 @@ pages:
   - page:
     id: 1
     title: "What do you want help with?"
-    hint: "What do you want help with?"
 
     questions:
       - title: "What do you want help with?"
@@ -17,17 +16,22 @@ pages:
             text: "Finding work experience"
           - id: 3
             value: "education_training"
-            text: "Access to training or courses"
+            text: "Get access to training or courses"
           - id: 4
             value: "benefits"
             text: "Claiming benefits"
+          - id: 5
+            value: "job_centre"
+            text: "Finding my nearest job centre"
         next:
           - option: 1
             question: 2
+          - option: 2
+            question: 4
           - option: 3
             question: 4
           - option: 4
-            question: 4
+            question: 6
 
   - page:
     id: 2
@@ -92,18 +96,18 @@ pages:
             question: 4
 
   - page:
-    title: "Why?"
+    title: "How do you feel about going back to work?"
     id: 4
 
     questions:
-      - title: "Why?"
+      - title: ""
         type: "free"
         name: "sad_why"
         inline: true
         options:
           - id: 1
             value: "free_text"
-            text: "Why are you feeling this way?"
+            text: "How do you feel about going back to work?"
         next:
           - option: 1
             question: 5
