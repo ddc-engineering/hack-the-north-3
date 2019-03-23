@@ -37,13 +37,13 @@ class SlinkyApp:
         self.questions = load_questions()
 
     def retrieve_last_question(self, question_id):
-        return next(questidataon for question in self.questions if question.get('id') == id)
+        return next(questidataon for question in self.questions if question.get('id') == question_id)
 
     def get_first_question(self):
         return self.get_question_by_id(1)
 
-    def get_question_by_id(self, id):
-        return next(question for question in self.questions if question.get('id') == id)
+    def get_question_by_id(self, question_id):
+        return next(question for question in self.questions if question.get('id') == question_id)
 
     def get_next_question(self, question_id, answer_id):
         self.data['answers'].append({
@@ -84,7 +84,6 @@ def start():
     app = SlinkyApp()
 
     q = app.get_first_question()
-    session_id = app.session_id
 
     return _create_question_response(q, app.session_id)
 
@@ -102,6 +101,7 @@ def response():
         # should get the helpful urls
         q = {'helpful_url': 'xxxxx'}
     return _create_question_response(q, app.session_id)
+
 
 @application.route('/api/answers', methods=['GET'])
 def answers():
