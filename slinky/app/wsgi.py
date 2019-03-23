@@ -22,7 +22,7 @@ with open('/app/small_words.txt') as f:
     for word in f.readlines():
         small_words.append(word.replace("\n", ""))
 
-
+return
 class SlinkyApp:
     def __init__(self, session_id=None):
 
@@ -57,7 +57,7 @@ class SlinkyApp:
         print(question)
         print(question_id)
         return question
-        
+
     def get_next_question(self, question_id, answer_id):
         self.data['answers'].append({
             'question_id': question_id,
