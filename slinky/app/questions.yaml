@@ -1,112 +1,174 @@
 pages:
   - page:
     id: 1
-    title: "Slinky ques"
-    hint: "The questions page"
+    title: "What do you want help with?"
+    hint: "What do you want help with?"
 
     questions:
-      - title: "True or False"
-        hint: "This is a test radio hint"
+      - title: "What do you want help with?"
         type: "radio"
-        name: "gender"
-        inline: true
+        name: "help_required"
         options:
           - id: 1
-            value: "male"
-            hint: "male hint"
-            text: "Male"
+            value: "work"
+            text: "I need help finding work"
           - id: 2
-            value: "female"
-            hint: "female hint"
-            text: "Female"
+            value: "work_experience"
+            text: "I need help finding work experience"
+          - id: 3
+            value: "education_training"
+            text: "I need help getting training or education"
+          - id: 4
+            value: "benefits"
+            text: "I need help claiming benefits"
         next:
           - option: 1
             question: 2
           - option: 2
             question: 2
+          - option: 3
+            question: 2
+          - option: 4
+            question: 2
 
   - page:
-    title: "Yes No"
-    hint: "The questions page"
     id: 2
+    title: "What is your current work situation?"
+    hint: "What is your current work situation?"
 
     questions:
-      - title: "Is your name Tom?"
-        hint: "This is a test radio hint 2"
-        type: "binary"
-        name: "Is your name Tom?"
+      - title: "What is your current work situation?"
+        type: "radio"
+        name: "current_situation"
+        inline: true
+        options:
+          - id: 1
+            value: "less_than_six"
+            text: "I have been out of work for less than 6 months."
+            hint: "I have been out of work for less than 6 months."
+          - id: 2
+            value: "six_to_twelve"
+            text: "I have been out of work for between 6 and 12 months."
+            hint: "I have been out of work for between 6 and 12 months."
+          - id: 3
+            value: "more_than_twelve"
+            text: "I have been out of work for more than 12 months."
+            hint: "I have been out of work for more than 12 months."
+          - id: 4
+            value: "part_time"
+            text: "I am employed part-time and am looking for full-time work."
+            hint: "I am employed part-time and am looking for full-time work."
         next:
           - option: 1
             question: 3
+          - option: 2
+            question: 3
+          - option: 3
+            question: 3
+          - option: 4
+            question: 3
 
   - page:
-    title: "Free text"
-    hint: "The questions page"
+    title: "How do you feel about going to work?"
+    hint: "going_to_work"
     id: 3
 
     questions:
-      - title: "Would you like to type"
-        hint: "you can type here"
-        type: "free-text"
-        name: "text field"
+      - title: "How do you feel about going to work?"
+        type: "slider"
+        name: "going_to_work"
         inline: true
         options:
           - id: 1
-            value: "male"
-            hint: "male hint"
-            text: "Male"
-        next:
-          - option: 1
-            question: 4
-
-  - page:
-    title: "True, Faoptionlse"
-    hint: "The questions page"
-    id: 4
-
-    questions:
-      - title: "True, False"
-        hint: "This is a test radio hint 2"
-        type: "radio"
-        name: "gender"
-        inline: true
-        options:
-          - id: 1
-            value: "male"
-            hint: "male hint"
-            text: "Male"
+            value: "bad"
+            text: ":("
+            hint: "Scared, sad or anxious"
           - id: 2
-            value: "female"
-            hint: "female hint"
-            text: "Female"
+            value: "meh"
+            text: ":|"
+            hint: "Indifferent, not bothered"
+          - id: 3
+            value: "good"
+            text: ":)"
+            hint: "Happy, excited"
         next:
           - option: 1
             question: 5
           - option: 2
             question: 5
-
-
+          - option: 3
+            question: 4
 
   - page:
-    title: "Slidey page"
-    hint: "The questions page"
+    title: "Why?"
+    hint: "Why are you feeling this way?"
+    id: 4
+
+    questions:
+      - title: "Why?"
+        hint: "Why are you feeling this way?"
+        type: "free-text"
+        name: "sad_why"
+        inline: true
+        options:
+          - id: 1
+            value: "free_text"
+            hint: "Why are you feeling this way?"
+            text: "Why are you feeling this way?"
+        next:
+          - option: 1
+            question: 5
+
+  - page:
+    title: "Do you need help to feel ready for work?"
+    hint: "Do you need help to feel ready for work?"
     id: 5
 
     questions:
-      - title: "On a scale of 1 - 5 how much of a slidey question is this"
-        hint: "This is slidey hint"
-        type: "slider"
-        name: "slidey"
+      - title: "Do you need help to feel ready for work?"
+        hint: "Do you need help to feel ready for work?"
+        type: "binary"
+        name: "work_ready"
+        next:
+          - option: 1
+            question: 6
+
+  - page:
+    id: 6
+    title: "How can we help you to feel better about going to work?"
+    hint: "How can we help you to feel better about going to work?"
+
+    questions:
+      - title: "How can we help you to feel better about going to work?"
+        type: "radio"
+        name: "feel_better"
         inline: true
         options:
-          range: 5
+          - id: 1
+            value: "face_to_face"
+            hint: "I would like to speak to someone face to face."
+            text: "I would like to speak to someone face to face."
+          - id: 2
+            value: "services_info"
+            hint: "I would like more information about the services available."
+            text: "I would like more information about the services available."
+          - id: 3
+            value: "build_confident"
+            hint: "I would like help to be more confident"
+            text: "I would like help to be more confident"
 
 provisions:
   - name: "Training"
+    items:
+      - "http://link1.com"
+      - "http://link2.com"
+      - "Here's a simple explanation about this"
     questions:
       - 1
       - 2
   - name: "IT Jobs"
+    items:
+      - "http://link1.com"
     questions:
       - 1
       - 3

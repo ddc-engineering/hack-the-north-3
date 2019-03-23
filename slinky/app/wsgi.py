@@ -6,6 +6,7 @@ import urllib.parse
 import requests
 from flask import Flask, request, Response
 import contentloader as contentloader
+from provisions import ProvisionsEngine
 from flask_cors import CORS
 
 application = Flask(__name__)
@@ -41,6 +42,9 @@ class SlinkyApp:
         self.data = application.munjoe_db[session_id]
 
         self.questions = contentloader.load_questions('/app/questions.yaml')
+        self.provisions = contentloader.load_provisions('/app/questions.yaml')
+        print(self.questions)
+        self.provisions_engine = ProvisionsEngine(self.provisions)
 
     def retrieve_last_question(self, question_id):
         return next((question for question in self.questions if question.get('id') == question_id), None)
@@ -49,8 +53,11 @@ class SlinkyApp:
         return self.get_question_by_id(1)
 
     def get_question_by_id(self, question_id):
-        return next(question for question in self.questions if question.get('id') == question_id)
-
+        question = next((question for question in self.questions if question.get('id') == question_id), None)
+        print(question)
+        print(question_id)
+        return question
+        
     def get_next_question(self, question_id, answer_id):
         self.data['answers'].append({
             'question_id': question_id,
@@ -80,6 +87,20 @@ class SlinkyApp:
 def generate_session():
     return str(uuid.uuid4())
 
+def create_provisions_response(provisions, passphrase=None):
+    return _create_question_response({
+        "friendly_code": passphrase,
+        "provisions": [
+            {
+                "name": "Training",
+                "items": [
+                    "http://link1.com",
+                    "http://link2.com",
+                    "Here's a simple explanation about this",
+                ],
+            }
+        ],
+    })
 
 def _create_question_response(page_view: dict, session_id=None):
     if session_id:
@@ -124,6 +145,7 @@ def response():
 def answers():
     session_id = request.args.get('sessionId', '')
 
+    friendly_code = None
     if not session_id:
         friendly_code = request.args.get('friendlyCode', '')
         app = SlinkyApp.load_from_friendly_code(friendly_code)
@@ -132,7 +154,17 @@ def answers():
     else:
         app = SlinkyApp(session_id)
     a = app.get_answers()
-    return _create_question_response(a)
+
+    questions = [ q['question_id'] for q in app.data['answers'] ]
+    if len(questions) == 0:
+        return _create_question_response({'text': 'There has been a problem fetching your answers.'})
+        
+    provisions = app.provisions_engine.get_provisions_for_questions(questions)
+    if provisions is None or len(provisions) == 0:
+        return _create_question_response({'text': 'No provisions were found'})
+
+    return create_provisions_response(provisions, friendly_code)
+    #return _create_question_response(a)
 
 
 def is_sentiment_concerning(text):

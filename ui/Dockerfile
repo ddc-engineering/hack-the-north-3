@@ -8,4 +8,5 @@ COPY src/ /app/src
 RUN npm run-script build
 
 FROM nginx:mainline
+COPY nginx/ui.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/build /usr/share/nginx/html
