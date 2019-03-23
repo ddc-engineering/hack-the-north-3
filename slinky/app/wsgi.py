@@ -14,7 +14,7 @@ application.munjoe_db = dict()
 
 def load_questions() -> dict:
 
-    with open('slinky/questions.yaml', 'r') as questions_yaml:
+    with open('/app/questions.yaml', 'r') as questions_yaml:
         questions = load(questions_yaml, Loader=Loader)
     return questions
 
@@ -54,7 +54,7 @@ class SlinkyApp:
         next_items = self.get_question_by_id(question_id)['questions'][0].get('next')
         if not next_items:
             return None
-        
+
         next_question_id = next((item.get('question') for item in next_items if item.get('option') == answer_id), None)
         if next_question_id:
             return self.get_question_by_id(next_question_id)
@@ -98,10 +98,11 @@ def response():
 
     app = SlinkyApp(session_id)
     q = app.get_next_question(question_id, post_body["answer_id"])
-    if not q:    
+    if not q:
         # should get the helpful urls
         q = {'helpful_url': 'xxxxx'}
     return _create_question_response(q, app.session_id)
+
 
 @application.route('/api/answers', methods=['GET'])
 def answers():
