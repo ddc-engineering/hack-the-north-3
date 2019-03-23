@@ -25,7 +25,7 @@ pages:
           - option: 1
             question: 2
           - option: 3
-            question: 3
+            question: 4
           - option: 4
             question: 4
 
@@ -53,13 +53,13 @@ pages:
             text: "I am employed part-time and am looking for full-time work."
         next:
           - option: 1
-            question: 3
+            question: 4
           - option: 2
-            question: 3
+            question: 4
           - option: 3
-            question: 3
+            question: 4
           - option: 4
-            question: 3
+            question: 4
 
   - page:
     title: "How do you feel about going to work?"
