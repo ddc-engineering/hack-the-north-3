@@ -20,9 +20,14 @@ pages:
           - id: 4
             value: "benefits"
             text: "Claiming benefits"
+          - id: 5
+            value: "job_centre"
+            text: "Finding my nearest job centre"
         next:
           - option: 1
             question: 2
+          - option: 2
+            question: 4
           - option: 3
             question: 4
           - option: 4
