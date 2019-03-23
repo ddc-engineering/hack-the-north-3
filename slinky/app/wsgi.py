@@ -1,9 +1,8 @@
 import uuid
 import json
-import random
 
 from flask import Flask, request, Response
-from yaml import load, Loader
+import contentloader as contentloader
 from flask_cors import CORS
 
 application = Flask(__name__)
@@ -13,15 +12,14 @@ CORS(application)
 application.munjoe_db = dict()
 
 
-def load_questions() -> dict:
+small_words = []
 
-    with open('slinky/questions.yaml', 'r') as questions_yaml:
-        questions = load(questions_yaml, Loader=Loader)
-    return questions
+with open('/app/small_words.txt') as f:
+    for word in f.readlines():
+        small_words.append(word.replace("\n", ""))
 
 
 class SlinkyApp:
-
     def __init__(self, session_id=None):
 
         if not session_id:
@@ -35,23 +33,17 @@ class SlinkyApp:
         self.session_id = session_id
         self.data = application.munjoe_db[session_id]
 
-        self.questions = load_questions()
 
-    @staticmethod
-    def load_from_friendly_code(friendly_code):
-        for key in application.munjoe_db.keys():
-            if 'friendly_code' in application.munjoe_db[key]:
-                if application.munjoe_db[key]['friendly_code'] == friendly_code:
-                    return SlinkyApp(key)
+        self.questions = contentloader.load_questions('/app/questions.yaml')
 
     def retrieve_last_question(self, question_id):
-        return next(questidataon for question in self.questions if question.get('id') == question_id)
+        return next((questidataon for question in self.questions if question.get('id') == id), None)
 
     def get_first_question(self):
         return self.get_question_by_id(1)
 
-    def get_question_by_id(self, question_id):
-        return next(question for question in self.questions if question.get('id') == question_id)
+    def get_question_by_id(self, id):
+        return next((question for question in self.questions if question.get('id') == id), None)
 
     def get_next_question(self, question_id, answer_id):
         self.data['answers'].append({
@@ -71,11 +63,12 @@ class SlinkyApp:
         answers = self.data
         return answers
 
-    def get_friendly_code(self):
-        words = [random.choice(small_words) for _ in range(0, 2)]
-        friendly_code = ".".join(words)
-        self.data['friendly_code'] = friendly_code
-        return friendly_code
+    @staticmethod
+    def load_from_friendly_code(friendly_code):
+        for key in application.munjoe_db.keys():
+            if 'friendly_code' in application.munjoe_db[key]:
+                if application.munjoe_db[key]['friendly_code'] == friendly_code:
+                    return SlinkyApp(key)
 
 
 def generate_session():
@@ -83,7 +76,6 @@ def generate_session():
 
 
 def _create_question_response(page_view: dict, session_id=None):
-    print(page_view)
     if session_id:
         page_view['sessionId'] = session_id
     resp = Response(json.dumps(page_view))
@@ -94,7 +86,6 @@ def _create_question_response(page_view: dict, session_id=None):
 
 @application.route("/api/start", methods=['GET'])
 def start():
-
     app = SlinkyApp()
 
     q = app.get_first_question()
@@ -108,9 +99,13 @@ def response():
 
     session_id = post_body["sessionId"]
     question_id = post_body["question_id"]
+    answer_id = post_body["answer_id"]
+    free_text = post_body.get("free_text")
+    if free_text and is_sentiment_concerning(free_text):
+        return _create_question_response({'angry_customer': True})
 
     app = SlinkyApp(session_id)
-    q = app.get_next_question(question_id, post_body["answer_id"])
+    q = app.get_next_question(question_id, answer_id)
     if not q:    
         # should get the helpful urls
         q = {'helpful_url': 'xxxxx'}
@@ -129,3 +124,6 @@ def answers():
     a = app.get_answers()
     return _create_question_response(a)
 
+def is_sentiment_concerning(text):
+    # do some analysis
+    return False

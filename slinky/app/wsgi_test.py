@@ -1,8 +1,7 @@
 import pytest
 import json
 
-from slinky.wsgi import application
-
+from wsgi import application
 
 @pytest.fixture
 def client():
