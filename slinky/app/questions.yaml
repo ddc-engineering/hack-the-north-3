@@ -97,7 +97,7 @@ pages:
 
     questions:
       - title: "Why?"
-        type: "free-text"
+        type: "free"
         name: "sad_why"
         inline: true
         options:
