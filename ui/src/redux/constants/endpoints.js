@@ -4,7 +4,8 @@ const baseUrl =
 const APIEndpoints = {
   start: `${baseUrl}start`,
   restoreSession: `${baseUrl}restore`,
-  response: `${baseUrl}response`
+  response: `${baseUrl}response`,
+  answers: `${baseUrl}answers`
 };
 
 export default APIEndpoints;

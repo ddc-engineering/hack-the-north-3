@@ -23,6 +23,7 @@ export default class BinaryQuestion extends React.Component {
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-one-half">
             <button
+              type="button"
               className="govuk-button govuk-button-fullwidth"
               onClick={this.returnValidResponse(true)}
             >
@@ -31,6 +32,7 @@ export default class BinaryQuestion extends React.Component {
           </div>
           <div class="govuk-grid-column-one-half">
             <button
+              type="button"
               className="govuk-button govuk-button-fullwidth"
               onClick={this.returnValidResponse(false)}
             >

@@ -9,7 +9,7 @@ class HomeView extends React.Component {
   startQuestionnaire() {
     const { startQuestionnaire, history } = this.props;
     startQuestionnaire();
-    history.push("/start");
+    history.push("/questionnaire");
   }
   render() {
     return (
@@ -37,6 +37,10 @@ class HomeView extends React.Component {
         >
           Get Started
         </button>
+        <p className="govuk-body">Already completed the survey?</p>
+        <a href="/results" draggable="false" className="govuk-button">
+          View Results
+        </a>
       </div>
     );
   }

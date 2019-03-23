@@ -38,11 +38,18 @@ export default class Header extends React.Component {
             </div>
             <div class="govuk-header__content">
               <a
-                href="#"
+                href="/"
                 className="govuk-header__link govuk-header__link--service-name"
               >
                 Getting back to work
               </a>
+              <nav>
+                <ul
+                  id="navigation"
+                  class="govuk-header__navigation "
+                  aria-label="Top Level Navigation"
+                />
+              </nav>
             </div>
           </div>
         </header>
