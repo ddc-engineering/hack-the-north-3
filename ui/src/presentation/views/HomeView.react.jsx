@@ -1,5 +1,5 @@
 import React from "react";
-
+import Footer from "../Footer.react";
 class HomeView extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -10,6 +10,7 @@ class HomeView extends React.Component {
     startQuestionnaire();
     history.push("/questionnaire");
   }
+
   render() {
     return (
       <div className="margin-top-title">
@@ -40,6 +41,7 @@ class HomeView extends React.Component {
         <a href="/results" draggable="false" className="govuk-button">
           View Results
         </a>
+        <Footer />
       </div>
     );
   }

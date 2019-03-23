@@ -23,11 +23,11 @@ def _phrases(text, lang):
     )
 
 
-def _translate(text, lang):
+def _translate(text, srcLang, trgLang):
     return translate.translate_text(
         Text=text,
-        SourceLanguageCode='auto',
-        TargetLanguageCode=lang
+        SourceLanguageCode=srcLang,
+        TargetLanguageCode=trgLang
     )
 
 
@@ -45,8 +45,9 @@ def phrases_(text):
 
 @app.route('/translate/<text>', methods=['GET'])
 def translate_(text):
-    lang = flask.request.args.get('lang', 'es')
-    return flask.jsonify(_translate(text, lang))
+    srcLang = flask.request.args.get('sl', 'es')
+    trgLang = flask.request.args.get('tl', 'es')
+    return flask.jsonify(_translate(text, srcLang, trgLang))
 
 
 @app.route('/alive')
