@@ -4,7 +4,7 @@ const initialState = {
   ready: false,
   notFound: false,
   loading: false,
-  fromQuestionnaire: true
+  fromQuestionnaire: false
 };
 
 const answersReducer = (state = initialState, action) => {
@@ -14,7 +14,12 @@ const answersReducer = (state = initialState, action) => {
     case types.PASSPHRASE_NOT_FOUND:
       return { ...state, ready: false, notFound: true, loading: false };
     case types.QUERY_COMPLETE:
-      return { ...state, ...action.payload, ready: true, loading: false };
+      return {
+        ...state,
+        data: { ...action.payload },
+        ready: true,
+        loading: false
+      };
     case types.QUESTIONNAIRE_FINISHED:
       return {
         ...state,

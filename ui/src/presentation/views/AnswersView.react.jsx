@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "../Footer.react";
 
 const RenderRows = props => {
   const { data } = props;
@@ -42,7 +43,7 @@ export default class AnswersView extends React.Component {
     queryPassphrase(currentInput);
   }
   render() {
-    const { queryPassphrase, ready, fromQuestionnaire, data } = this.props;
+    const { ready, notFound, fromQuestionnaire, data } = this.props;
     if (!ready) {
       return (
         <div className="margin-top-title">
@@ -50,6 +51,13 @@ export default class AnswersView extends React.Component {
           <p className="govuk-body-l">
             Enter your passphrase below to access your results.
           </p>
+          {notFound ? (
+            <span class="govuk-error-message">
+              <span class="govuk-visually-hidden">Error:</span> That access code
+              was not found in the database.
+            </span>
+          ) : null}
+
           <div className="govuk-form-group">
             <label className="govuk-label" for="event-name">
               Passphrase
@@ -71,6 +79,7 @@ export default class AnswersView extends React.Component {
           >
             View your results
           </button>
+          <Footer />
         </div>
       );
     } else {

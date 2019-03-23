@@ -4,6 +4,7 @@ import APIEndpoints from "../constants/endpoints";
 import history from "../../history";
 
 const querySuccessful = payload => {
+  console.log(payload);
   return { type: types.QUERY_COMPLETE, payload };
 };
 
@@ -21,9 +22,11 @@ export const queryPassphrase = passphrase => {
     axios
       .get(`${APIEndpoints.answers}?friendlyCode=${passphrase}`)
       .then(response => {
-        dispatch(querySuccessful(response.body));
+        dispatch(querySuccessful(response.data));
       })
-      .catch(error => {});
+      .catch(() => {
+        dispatch(passphraseNotFound());
+      });
   };
 };
 
