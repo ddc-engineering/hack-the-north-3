@@ -123,17 +123,17 @@ def start():
 @application.route('/api/response', methods=['POST'])
 def response():
     post_body = request.json
-
-    session_id = post_body["sessionId"]
-    friendly_code = app.data["friendlyCode"]
     question_id = post_body["question_id"]
     answer_id = post_body["answer_id"]
     free_text = post_body.get("free_text")
+    session_id = post_body["sessionId"]
+    app = SlinkyApp(session_id)
+
+    friendly_code = app.data["friendlyCode"]
 
     if free_text and is_sentiment_concerning(free_text):
         return _create_question_response({'angry_customer': True})
 
-    app = SlinkyApp(session_id)
     q = app.get_next_question(question_id, answer_id)
     if not q:
         return create_provisions_response({
