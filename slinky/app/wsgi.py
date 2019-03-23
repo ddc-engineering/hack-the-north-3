@@ -79,8 +79,8 @@ class SlinkyApp:
     @staticmethod
     def load_from_friendly_code(friendly_code):
         for key in application.munjoe_db.keys():
-            if 'friendly_code' in application.munjoe_db[key]:
-                if lower(application.munjoe_db[key]['friendly_code']) == lower(friendly_code):
+            if 'friendlyCode' in application.munjoe_db[key]:
+                if application.munjoe_db[key]['friendlyCode'].lower() == friendly_code.lower():
                     return SlinkyApp(key)
 
 
