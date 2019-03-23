@@ -141,7 +141,7 @@ def response():
     q = app.get_next_question(question_id, answer_id)
     if not q:
         return create_provisions_response({
-            "friendly_code": friendly_code,
+            "friendly_code": "steep-horse",
             "provisions": [
                 {
                     "name": "Training",
