@@ -94,9 +94,9 @@ def create_provisions_response(provisions, passphrase=None):
             {
                 "name": "Training",
                 "items": [
-                    "http://link1.com",
-                    "http://link2.com",
-                    "Here's a simple explanation about this",
+                    "https://www.leeds.gov.uk/residents/learning-and-job-opportunities/learning-opportunities",
+                    "https://doinggoodleeds.org.uk/training-courses/",
+                    "You might want to consider booking an appointment with a work coach at your local Jobcentre Plus",
                 ],
             }
         ],
@@ -141,9 +141,9 @@ def response():
                 {
                     "name": "Training",
                     "items": [
-                        "http://link1.com",
-                        "http://link2.com",
-                        "Here's a simple explanation about this",
+                        "https://www.leeds.gov.uk/residents/learning-and-job-opportunities/learning-opportunities",
+                        "https://doinggoodleeds.org.uk/training-courses/",
+                        "You might want to consider booking an appointment with a work coach at your local Jobcentre Plus",
                     ],
                 }
             ],
