@@ -7,7 +7,7 @@ import history from "../history";
 
 const RouterComponent = () => {
   return (
-    <div className="govuk-width-container">
+    <div className="govuk-width-container main-container">
       <Router history={history}>
         <Route path="/" exact component={HomeViewContainer} />
         <Route

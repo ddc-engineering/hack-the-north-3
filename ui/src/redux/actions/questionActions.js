@@ -15,6 +15,10 @@ const nextQuestion = payload => {
   return { type: types.NEXT_QUESTION, payload };
 };
 
+const angryCustomer = () => {
+  return { type: types.ANGRY_CUSTOMER };
+};
+
 export const respondToApi = response => {
   const cookies = new Cookies();
   console.log(response);
@@ -32,7 +36,12 @@ export const respondToApi = response => {
         }
       )
       .then(response => {
-        dispatch(nextQuestion(response.data));
+        console.log(response.data);
+        if (response.data.angry_customer) {
+          dispatch(angryCustomer());
+        } else {
+          dispatch(nextQuestion(response.data));
+        }
       })
       .catch(error => console.error(error));
   };

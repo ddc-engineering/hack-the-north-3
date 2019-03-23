@@ -77,7 +77,7 @@ export default class AnswersView extends React.Component {
       );
     } else {
       return (
-        <div className="margin-top-title" style={{ paddingBottom: 200 }}>
+        <div className="margin-top-title" style={{ marginBottom: 250 }}>
           {fromQuestionnaire ? (
             <div className="govuk-panel govuk-panel--confirmation">
               <h1 className="govuk-panel__title">Questionnaire Complete</h1>
