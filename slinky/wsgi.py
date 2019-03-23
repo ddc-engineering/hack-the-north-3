@@ -21,16 +21,14 @@ def load_questions() -> dict:
 
 
 class SlinkyApp:
-
     def __init__(self, session_id=None):
-
         if not session_id:
             session_id = generate_session()
             application.munjoe_db[session_id] = dict()
             application.munjoe_db[session_id]['answers'] = []
         else:
             if session_id not in application.munjoe_db:
-                raise ValueError(f"The session id {session_id} was not found in the database")
+                return ValueError(f"The session id {session_id} was not found in the database")
 
         self.session_id = session_id
         self.data = application.munjoe_db[session_id]
