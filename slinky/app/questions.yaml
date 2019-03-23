@@ -1,91 +1,101 @@
-- page:
-  id: 1
-  title: "Slinky ques"
-  hint: "The questions page"
+pages:
+  - page:
+      id: 1
+      title: "Slinky ques"
+      hint: "The questions page"
 
-  questions:
-   - title: "True or False"
-     hint: "This is a test radio hint"
-     type: "radio"
-     name: "gender"
-     inline: "true"
-     options:
-       - id: 1
-         value: "male"
-         hint: "male hint"
-         text: "Male"
-       - id: 2
-         value: "female"
-         hint: "female hint"
-         text: "Female"
-     next:
-      - option: 1
-        question: 2
-      - option: 2
-        question: 2
+      questions:
+      - title: "True or False"
+        hint: "This is a test radio hint"
+        type: "radio"
+        name: "gender"
+        inline: "true"
+        options:
+          - id: 1
+            value: "male"
+            hint: "male hint"
+            text: "Male"
+          - id: 2
+            value: "female"
+            hint: "female hint"
+            text: "Female"
+        next:
+          - option: 1
+            question: 2
+          - option: 2
+            question: 2
 
-- page:
-  title: "True, False"
-  hint: "The questions page"
-  id: 2
+  - page:
+      title: "True, False"
+      hint: "The questions page"
+      id: 2
 
-  questions:
-   - title: "True, False"
-     hint: "This is a test radio hint 2"
-     type: "radio"
-     name: "gender"
-     inline: "true"
-     options:
-       - id: 1
-         value: "potato"
-         hint: "male hint"
-         text: "potato"
-       - id: 2
-         value: "tomato"
-         hint: "female hint"
-         text: "tomato"
-     next:
-      - option: 1
-        question: 3
+      questions:
+      - title: "True, False"
+        hint: "This is a test radio hint 2"
+        type: "radio"
+        name: "gender"
+        inline: "true"
+        options:
+          - id: 1
+            value: "potato"
+            hint: "male hint"
+            text: "potato"
+          - id: 2
+            value: "tomato"
+            hint: "female hint"
+            text: "tomato"
+        next:
+          - option: 1
+            question: 3
 
-- page:
-  title: "Free text"
-  hint: "The questions page"
-  id: 3
+  - page:
+    title: "Free text"
+    hint: "The questions page"
+    id: 3
 
-  questions:
-   - title: "Would you like to type"
-     hint: "you can type here"
-     type: "free-text"
-     name: "text field"
-     inline: "true"
-     options:
-       - id: 1
-         value: "male"
-         hint: "male hint"
-         text: "Male"
-     next:
-      - option: 1
-        question: 4
+    questions:
+    - title: "Would you like to type"
+      hint: "you can type here"
+      type: "free-text"
+      name: "text field"
+      inline: "true"
+      options:
+        - id: 1
+          value: "male"
+          hint: "male hint"
+          text: "Male"
+      next:
+        - option: 1
+          question: 4
 
-- page:
-  title: "True, Faoptionlse"
-  hint: "The questions page"
-  id: 4
+  - page:
+      title: "True, False"
+      hint: "The questions page"
+      id: 4
 
-  questions:
-   - title: "True, False"
-     hint: "This is a test radio hint 2"
-     type: "radio"
-     name: "gender"
-     inline: "true"
-     options:
-       - id: 1
-         value: "male"
-         hint: "male hint"
-         text: "Male"
-       - id: 2
-         value: "female"
-         hint: "female hint"
-         text: "Female"
+      questions:
+      - title: "True, False"
+        hint: "This is a test radio hint 2"
+        type: "radio"
+        name: "gender"
+        inline: "true"
+        options:
+          - id: 1
+            value: "male"
+            hint: "male hint"
+            text: "Male"
+          - id: 2
+            value: "female"
+            hint: "female hint"
+            text: "Female"
 
+provisions:
+  - name: "Training"
+    questions:
+      - 1
+      - 2
+  - name: "IT Jobs"
+    questions:
+      - 1
+      - 3
