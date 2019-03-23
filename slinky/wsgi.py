@@ -5,18 +5,20 @@ from flask import Flask, jsonify, request, Response
 
 application = Flask(__name__)
 
-
-db = dict()
+application.db = dict()
 
 
 def generate_session():
-    return uuid.uuid1()
+    return str(uuid.uuid1())
 
 
 @application.route("/api/start", methods=['GET'])
 def start():
     session_id = generate_session()
-    respData = {
+
+    application.db[session_id] = dict()
+
+    resp_data = {
             "sessionId": f"{session_id}",
             "pageView": {
                 "title": "Demographics", "hint": "AdditionalInformation",
@@ -31,26 +33,31 @@ def start():
                                  {"id": 3, "hint": "Other hint", "value": "other", "text": "Other"}]}]}
         }
 
-    resp = Response(json.dumps(respData))
+    resp = Response(json.dumps(resp_data))
     resp.headers['Access-Control-Allow-Origin'] = '*'
     resp.headers['Content-Type'] = 'application/json'
-    db[session_id] = dict()
 
     return resp
+
 
 @application.route('/api/response', methods=['POST'])
 def response():
     post_body = request.json
+
     session_id = post_body["sessionId"]
+
     question_name = post_body["name"]
 
-    if session_id not in db:
+    print(application.db.keys())
+
+    if session_id not in application.db:
         raise ValueError(f"The session id {session_id} was not found in the database")
 
-    db[session_id][question_name] = post_body["value"]
+    application.db[session_id][question_name] = post_body["value"]
 
     # TODO: return the next question
 
     return jsonify(
-        db[session_id]
+        application.db[session_id]
     )
+
