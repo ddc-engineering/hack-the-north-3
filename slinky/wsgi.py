@@ -26,7 +26,6 @@ def get_db_cursor():
         g.conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         g.cur = g.conn.cursor()
         g.cur.execute(schema)
-        g.cur.commit()
     return g.cur
 
 
@@ -51,27 +50,26 @@ class SlinkyApp:
 
         curr = get_db_cursor()
 
+        current_question = 0
+
         if not session_id:
             session_id = generate_session()
 
             sql = """insert into user_sessions(session_id, current_question) values (%s, %s)"""
             curr.execute(sql, (session_id, 0))
-            curr.commit()
         else:
-            sql = """select session_id from user_sessions where session_id = %s"""
+            sql = """select session_id, current_question from user_sessions where session_id = %s"""
             curr.execute(sql, (session_id,))
 
-            res = curr.fetchone()
+            session_id, current_question = curr.fetchone()
 
-            print(res)
-
-            if not res:
+            if not session_id:
                 raise ValueError(f"The session id {session_id} was not found in the database")
             pass
 
         self.session_id = session_id
 
-        self.question_index = 0
+        self.question_index = current_question
 
         self.questions = load_questions()
 
@@ -91,8 +89,8 @@ class SlinkyApp:
 
         sql = """insert into questions (session_id, question_name, question_value) values (%s, %s, %s)"""
 
-        conn = get_db_cursor()
-        conn.execute(sql, (session_id, name, val))
+        curr = get_db_cursor()
+        curr.execute(sql, (session_id, name, val))
 
     def get_next_question(self):
         question = self.questions[self.question_index]
@@ -100,6 +98,10 @@ class SlinkyApp:
         question["sessionId"] = self.session_id
 
         self.question_index += 1
+
+        sql = """update user_sessions set current_question = %s where session_id = %s"""
+        curr.execute(sql, (self.question_index, self.session_id))
+
 
         return question
 
