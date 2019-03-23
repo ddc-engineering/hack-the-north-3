@@ -3,8 +3,11 @@ import json
 
 from flask import Flask, request, Response
 from yaml import load, Loader
+from flask_cors import CORS
 
 application = Flask(__name__)
+
+CORS(application)
 
 application.munjoe_db = dict()
 
