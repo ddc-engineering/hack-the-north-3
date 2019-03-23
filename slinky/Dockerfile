@@ -1,4 +1,4 @@
-FROM alpine:3.9
+FROM alpine:3.9 AS base
 
 # Set the timezone for Python APScheduler
 ENV TZ='UTC'
@@ -34,6 +34,18 @@ ARG RC_VERSION=0.0.0
 ENV RC_VERSION=$RC_VERSION
 
 COPY app /app
+
+
+# Run unit tests
+FROM base AS test
+
+WORKDIR /app
+
+RUN pytest -v || true
+
+
+# Run app
+FROM base AS run
 
 ENTRYPOINT [ "/usr/bin/supervisord" ]
 
