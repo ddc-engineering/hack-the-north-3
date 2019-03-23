@@ -37,7 +37,7 @@ class SlinkyApp:
         self.questions = load_questions()
 
     def retrieve_last_question(self, question_id):
-        return next(questidataon for question in self.questions if question.get('id') == id)
+        return next(question_id for question in self.questions if question.get('id') == id)
 
     def get_first_question(self):
         return self.get_question_by_id(1)
