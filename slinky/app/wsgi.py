@@ -1,7 +1,7 @@
 import uuid
 import json
 
-from flask import Flask, request, Response
+from flask import Flask, request, Response, jsonify
 from yaml import load, Loader
 from flask_cors import CORS
 
@@ -110,3 +110,9 @@ def answers():
     app = SlinkyApp(session_id)
     a = app.get_answers()
     return _create_question_response(a)
+
+
+@application.route('/alive')
+def get_alive():
+    """ Returns a 200 OK """
+    return jsonify(status='OK')
