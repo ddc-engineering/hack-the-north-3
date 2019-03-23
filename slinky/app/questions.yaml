@@ -8,7 +8,7 @@
      hint: "This is a test radio hint"
      type: "radio"
      name: "gender"
-     inline: true
+     inline: "true"
      options:
        - id: 1
          value: "male"
@@ -25,15 +25,25 @@
         question: 2
 
 - page:
-  title: "Yes No"
+  title: "True, False"
   hint: "The questions page"
   id: 2
 
   questions:
-   - title: "Is your name Tom?"
+   - title: "True, False"
      hint: "This is a test radio hint 2"
-     type: "binary"
-     name: "Is your name Tom?"
+     type: "radio"
+     name: "gender"
+     inline: "true"
+     options:
+       - id: 1
+         value: "potato"
+         hint: "male hint"
+         text: "potato"
+       - id: 2
+         value: "tomato"
+         hint: "female hint"
+         text: "tomato"
      next:
       - option: 1
         question: 3
@@ -48,7 +58,7 @@
      hint: "you can type here"
      type: "free-text"
      name: "text field"
-     inline: true
+     inline: "true"
      options:
        - id: 1
          value: "male"
@@ -68,7 +78,7 @@
      hint: "This is a test radio hint 2"
      type: "radio"
      name: "gender"
-     inline: true
+     inline: "true"
      options:
        - id: 1
          value: "male"

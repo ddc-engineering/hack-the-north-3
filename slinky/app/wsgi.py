@@ -1,7 +1,7 @@
 import uuid
 import json
 
-from flask import Flask, request, Response
+from flask import Flask, request, Response, jsonify
 from yaml import load, Loader
 from flask_cors import CORS
 
@@ -13,20 +13,23 @@ application.munjoe_db = dict()
 
 
 def load_questions() -> dict:
-    with open('slinky/questions.yaml', 'r') as questions_yaml:
+
+    with open('/app/questions.yaml', 'r') as questions_yaml:
         questions = load(questions_yaml, Loader=Loader)
     return questions
 
 
 class SlinkyApp:
+
     def __init__(self, session_id=None):
+
         if not session_id:
             session_id = generate_session()
             application.munjoe_db[session_id] = dict()
             application.munjoe_db[session_id]['answers'] = []
         else:
             if session_id not in application.munjoe_db:
-                return ValueError(f"The session id {session_id} was not found in the database")
+                raise ValueError(f"The session id {session_id} was not found in the database")
 
         self.session_id = session_id
         self.data = application.munjoe_db[session_id]
@@ -34,13 +37,13 @@ class SlinkyApp:
         self.questions = load_questions()
 
     def retrieve_last_question(self, question_id):
-        return next((questidataon for question in self.questions if question.get('id') == id), None)
+        return next(question_id for question in self.questions if question.get('id') == id)
 
     def get_first_question(self):
         return self.get_question_by_id(1)
 
     def get_question_by_id(self, id):
-        return next((question for question in self.questions if question.get('id') == id), None)
+        return next(question for question in self.questions if question.get('id') == id)
 
     def get_next_question(self, question_id, answer_id):
         self.data['answers'].append({
@@ -51,7 +54,7 @@ class SlinkyApp:
         next_items = self.get_question_by_id(question_id)['questions'][0].get('next')
         if not next_items:
             return None
-        
+
         next_question_id = next((item.get('question') for item in next_items if item.get('option') == answer_id), None)
         if next_question_id:
             return self.get_question_by_id(next_question_id)
@@ -66,7 +69,6 @@ def generate_session():
 
 
 def _create_question_response(page_view: dict, session_id=None):
-    print(page_view)
     if session_id:
         page_view['sessionId'] = session_id
     resp = Response(json.dumps(page_view))
@@ -77,6 +79,7 @@ def _create_question_response(page_view: dict, session_id=None):
 
 @application.route("/api/start", methods=['GET'])
 def start():
+
     app = SlinkyApp()
 
     q = app.get_first_question()
@@ -91,17 +94,14 @@ def response():
 
     session_id = post_body["sessionId"]
     question_id = post_body["question_id"]
-    answer_id = post_body["answer_id"]
-    free_text = post_body.get("free_text")
-    if free_text and is_sentiment_concerning(free_text):
-        return _create_question_response({'angry_customer': True})
 
     app = SlinkyApp(session_id)
-    q = app.get_next_question(question_id, answer_id)
-    if not q:    
+    q = app.get_next_question(question_id, post_body["answer_id"])
+    if not q:
         # should get the helpful urls
         q = {'helpful_url': 'xxxxx'}
     return _create_question_response(q, app.session_id)
+
 
 @application.route('/api/answers', methods=['GET'])
 def answers():
@@ -111,6 +111,8 @@ def answers():
     a = app.get_answers()
     return _create_question_response(a)
 
-def is_sentiment_concerning(text):
-    # do some analysis
-    return False
+
+@application.route('/alive')
+def get_alive():
+    """ Returns a 200 OK """
+    return jsonify(status='OK')
