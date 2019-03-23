@@ -11,16 +11,16 @@ pages:
         options:
           - id: 1
             value: "work"
-            text: "I need help finding work"
+            text: "Finding work"
           - id: 2
             value: "work_experience"
-            text: "I need help finding work experience"
+            text: "Finding work experience"
           - id: 3
             value: "education_training"
-            text: "I need help getting training or education"
+            text: "Access to training or courses"
           - id: 4
             value: "benefits"
-            text: "I need help claiming benefits"
+            text: "Claiming benefits"
         next:
           - option: 1
             question: 2
