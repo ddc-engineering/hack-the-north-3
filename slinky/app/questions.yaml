@@ -16,7 +16,7 @@ pages:
             text: "Finding work experience"
           - id: 3
             value: "education_training"
-            text: "Getting access to training or courses"
+            text: "Get access to training or courses"
           - id: 4
             value: "benefits"
             text: "Claiming benefits"
@@ -96,7 +96,7 @@ pages:
             question: 4
 
   - page:
-    title: "Why are you feeling this way?"
+    title: "How do you feel about going back to work?"
     id: 4
 
     questions:
@@ -107,7 +107,7 @@ pages:
         options:
           - id: 1
             value: "free_text"
-            text: "Why are you feeling this way?"
+            text: "How do you feel about going back to work?"
         next:
           - option: 1
             question: 5
