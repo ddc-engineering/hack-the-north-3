@@ -129,7 +129,11 @@ def response():
     session_id = post_body["sessionId"]
     app = SlinkyApp(session_id)
 
-    friendly_code = app.data["friendlyCode"]
+    print('FRIENDLY CODE')
+    print(app.data['friendlyCode'])
+    #friendly_code = "friendly.code" # app.data["friendlyCode"]
+
+    friendly_code = "-".join([random.choice(small_words) for _ in range(0, 2)])
 
     if free_text and is_sentiment_concerning(free_text):
         return _create_question_response({'angry_customer': True})
