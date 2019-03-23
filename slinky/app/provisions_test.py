@@ -32,3 +32,8 @@ def test_it_returns_provisions_for_questions(engine):
             "questions": [1,4],
         },
     ]
+
+def test_it_returns_empty_list_with_no_provisison():
+    engine = ProvisionsEngine([])
+    actual = engine.get_provisions_for_questions([1, 3])
+    assert actual == []

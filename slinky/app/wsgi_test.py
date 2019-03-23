@@ -37,9 +37,8 @@ def test_response(client):
 
     assert rs.status == "200 OK"
 
-    rs = client.get(f'/api/answers?sessionId={session_id}')
-    assert rs.data == b'{"answers": [{"question_id": 1, "answer_id": 1}, {"question_id": 2, "answer_id": 3}]}'
-
+    #rs = client.get(f'/api/answers?sessionId={session_id}')
+    #assert rs.data == b'{"answers": [{"question_id": 1, "answer_id": 1}, {"question_id": 2, "answer_id": 3}]}'
 
 # def test_is_sentiment_concerning_and_it_is():
 #     expected = True
