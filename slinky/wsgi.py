@@ -1,22 +1,31 @@
 import uuid
 import json
 
-from flask import Flask, jsonify, request, Response
+from flask import Flask, request, Response
 
 application = Flask(__name__)
 
-
-db = dict()
+application.db = dict()
 
 
 def generate_session():
-    return uuid.uuid1()
+    return str(uuid.uuid1())
+
+
+def _create_question_response(page_view: dict):
+    resp = Response(json.dumps(page_view))
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Content-Type'] = 'application/json'
+    return resp
 
 
 @application.route("/api/start", methods=['GET'])
 def start():
     session_id = generate_session()
-    respData = {
+
+    application.db[session_id] = dict()
+
+    resp_data = {
             "sessionId": f"{session_id}",
             "pageView": {
                 "title": "Demographics", "hint": "AdditionalInformation",
@@ -31,26 +40,37 @@ def start():
                                  {"id": 3, "hint": "Other hint", "value": "other", "text": "Other"}]}]}
         }
 
-    resp = Response(json.dumps(respData))
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    resp.headers['Content-Type'] = 'application/json'
-    db[session_id] = dict()
+    return _create_question_response(resp_data)
 
-    return resp
 
 @application.route('/api/response', methods=['POST'])
 def response():
     post_body = request.json
+
     session_id = post_body["sessionId"]
+
     question_name = post_body["name"]
 
-    if session_id not in db:
+    print(application.db.keys())
+
+    if session_id not in application.db:
         raise ValueError(f"The session id {session_id} was not found in the database")
 
-    db[session_id][question_name] = post_body["value"]
+    application.db[session_id][question_name] = post_body["value"]
 
-    # TODO: return the next question
+    resp_data = {
+        "sessionId": f"{session_id}",
+        "pageView": {
+            "title": "Demographics", "hint": "AdditionalInformation",
+            "questions": [
+                {"title": "Next dummy question?",
+                 "hint": "This is a test radio hint",
+                 "type": "radio",
+                 "name": "dummyq",
+                 "inline": True,
+                 "options": [{"id": 1, "value": "male", "hint": "Male Hint", "text": "Male"},
+                             {"id": 2, "hint": "Female hint", "value": "female", "text": "Female"},
+                             {"id": 3, "hint": "Other hint", "value": "other", "text": "Other"}]}]}
+    }
 
-    return jsonify(
-        db[session_id]
-    )
+    return _create_question_response(resp_data)
