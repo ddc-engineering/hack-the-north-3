@@ -1,22 +1,21 @@
-import uuid
 import json
+import os
 import random
 import urllib.parse
+import uuid
 
 import requests
-from flask import Flask, request, Response
-import contentloader as contentloader
-from provisions import ProvisionsEngine
+from flask import Flask, request, Response, jsonify
 from flask_cors import CORS
 
+import contentloader as contentloader
+from provisions import ProvisionsEngine
+
 application = Flask(__name__)
-
 CORS(application)
-
 application.munjoe_db = dict()
-
-
 small_words = []
+TEXT_API_ADDRESS = os.getenv('TEXT_API_ADDRESS', 'http://text:5000')
 
 with open('/app/small_words.txt') as f:
     for word in f.readlines():
@@ -57,7 +56,7 @@ class SlinkyApp:
         print(question)
         print(question_id)
         return question
-        
+
     def get_next_question(self, question_id, answer_id):
         self.data['answers'].append({
             'question_id': question_id,
@@ -87,11 +86,13 @@ class SlinkyApp:
 def generate_session():
     return str(uuid.uuid4())
 
+
 def create_provisions_response(provisions, passphrase=None):
     return _create_question_response({
         "friendly_code": passphrase,
         "provisions": provisions,
     })
+
 
 def _create_question_response(page_view: dict, session_id=None):
     if session_id:
@@ -127,10 +128,10 @@ def response():
 
     q = app.get_next_question(question_id, answer_id)
     if not q:
-        questions = [ q['question_id'] for q in app.data['answers'] ]
+        questions = [q['question_id'] for q in app.data['answers']]
         if len(questions) == 0:
             return _create_question_response({'title': 'There has been a problem fetching your answers.'})
-            
+
         provisions = app.provisions_engine.get_provisions_for_questions(questions)
         if provisions is None or len(provisions) == 0:
             return _create_question_response({'title': 'No provisions were found'})
@@ -154,20 +155,27 @@ def answers():
         friendly_code = app.data["friendlyCode"]
     a = app.get_answers()
 
-    questions = [ q['question_id'] for q in app.data['answers'] ]
+    questions = [q['question_id'] for q in app.data['answers']]
     if len(questions) == 0:
         return _create_question_response({'title': 'There has been a problem fetching your answers.'})
-        
+
     provisions = app.provisions_engine.get_provisions_for_questions(questions)
     if provisions is None or len(provisions) == 0:
         return _create_question_response({'title': 'No provisions were found'})
 
     return create_provisions_response(provisions, friendly_code)
 
+
 def is_sentiment_concerning(text):
     html_text = urllib.parse.quote(text, safe='')
-    r = requests.get(f"http://ec2-3-8-124-198.eu-west-2.compute.amazonaws.com:5000/sentiment/{html_text}").json()
+    r = requests.get(f"{TEXT_API_ADDRESS}/sentiment/{html_text}").json()
     if r['Sentiment'] == "NEGATIVE":
         return True
 
     return False
+
+
+@application.route('/alive')
+def get_alive():
+    """ Returns a 200 OK """
+    return jsonify(status='OK')

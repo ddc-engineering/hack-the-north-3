@@ -2,14 +2,19 @@ version: '3.6'
 services:
 
   ui:
-    build: ui
+    build:
+      context: ui
+      args:
+        REACT_APP_API_URL: "http://slinky:3000"
     ports:
-    - '80:80'
+      - '80:80'
 
   slinky:
     build: slinky
     ports:
-    - '3000:5000'
+      - '3000:5000'
+    environment:
+      TEXT_API_ADDRESS: "http://text:5000"
 
   text:
     build: text

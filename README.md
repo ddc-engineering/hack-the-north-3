@@ -1,20 +1,16 @@
 # Getting Started
 
-Make changes, push to Git and deploy to Heroku.
+Make changes, push to Git and deploy with Docker.
 
 ## Running Locally
 
-Install Heroku
-
-```sh
-$ sudo snap install heroku --classic
-```
+Install `docker`
 
 Download the repo, create a venv, install requirements
 
 ```sh
 $ git clone git@github.com:ddc-engineering/hack-the-north-3.git
-$ cd hack-the-north-3
+$ cd hack-the-north-3/slinky
 
 $ python3 -m venv venv
 $ source venv/bin/activate
@@ -25,12 +21,8 @@ $ python manage.py collectstatic
 ```
 
 Run locally
-```sh 
-$ heroku local
+```sh
+$ docker-compose up -d --build
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-## Running on Heroku
-
-Push to the repo.  Easy.
+Your app should now be running on [localhost:80](http://localhost:80/).

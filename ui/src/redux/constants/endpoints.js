@@ -1,11 +1,10 @@
-const baseUrl =
-  "http://ec2-3-8-124-198.eu-west-2.compute.amazonaws.com:3000/api/";
+const baseUrl = process.env.REACT_APP_API_URL;
 
 const APIEndpoints = {
-  start: `${baseUrl}start`,
-  restoreSession: `${baseUrl}restore`,
-  response: `${baseUrl}response`,
-  answers: `${baseUrl}answers`
+  start: `${baseUrl}/api/start`,
+  restoreSession: `${baseUrl}/api/restore`,
+  response: `${baseUrl}/api/response`,
+  answers: `${baseUrl}/api/answers`
 };
 
 export default APIEndpoints;

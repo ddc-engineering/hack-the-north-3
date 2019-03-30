@@ -1,4 +1,11 @@
+# IDE stuff
 .idea
+
+# Big stuff
+*.tar
+*.tgz
+*.gz
+*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
